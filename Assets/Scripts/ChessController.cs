@@ -12,6 +12,9 @@ public class ChessController : MonoBehaviour
     private List<Button> whitePieces = new List<Button>();
     private List<Button> blackPieces = new List<Button>();
 
+    private int blackScore;
+    private int whiteScore;
+
     public void AddToPieceInfo()
     {
         pieceInformations = FindObjectsOfType<PieceInformation>();
@@ -55,6 +58,8 @@ public class ChessController : MonoBehaviour
 
         if (pieceInfo != null)
         {
+            if (pieceInfo.isWhite) blackScore += pieceInfo.score;
+            else whiteScore += pieceInfo.score;
             Destroy(pieceInfo.gameObject);
         }
     }
