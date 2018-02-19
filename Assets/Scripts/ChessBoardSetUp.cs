@@ -20,19 +20,30 @@ public class ChessBoardSetUp : MonoBehaviour
     private float gridSpace;
     private float gridOrigin;
 
+    public bool editedScores;
+    private int[] pieceScores = new int[5] { 1, 5, 3, 3, 9 }; //pawn, rook, knight, bishop, queen
+    private int[] gameScores;
+
     void Start()
     {
         ChessController chessController = GetComponent<ChessController>();
         gridSpace = chessController.gridSize;
         gridOrigin = chessController.gridOrigin.x;
 
+        if (!editedScores)
+        {
+            gameScores = new int[5];
+            gameScores = pieceScores;
+        }
+
         for (int i = 0; i < 8; i++)//white pawns
         {
-            GameObject whitePawn = Instantiate(whitePawnPrefab, pieceParent);
-            RectTransform wpRect = whitePawn.GetComponent<RectTransform>();
+            GameObject piece = Instantiate(whitePawnPrefab, pieceParent);
+            RectTransform rect = piece.GetComponent<RectTransform>();
             Vector2 position = new Vector2((i * gridSpace) + gridOrigin, (1 * gridSpace) + gridOrigin);
-            wpRect.localPosition = position;
-            whitePawn.GetComponent<WhitePawn>().gridCoordinate = new Vector2(i, 1);
+            rect.localPosition = position;
+            piece.GetComponent<WhitePawn>().gridCoordinate = new Vector2(i, 1);
+            piece.GetComponent<PieceInformation>().score = gameScores[0];
         }
 
         //white rooks
@@ -44,6 +55,7 @@ public class ChessBoardSetUp : MonoBehaviour
             wrRect.localPosition = position;
             piece.GetComponent<Rook>().gridCoordinate = new Vector2(i * 7, 0);
             piece.GetComponent<Rook>().isWhite = true;
+            piece.GetComponent<PieceInformation>().score = gameScores[1];
         }
 
         //white knights
@@ -55,6 +67,7 @@ public class ChessBoardSetUp : MonoBehaviour
             rect.localPosition = position;
             piece.GetComponent<Knight>().gridCoordinate = new Vector2(1 + (i * 5), 0);
             piece.GetComponent<Knight>().isWhite = true;
+            piece.GetComponent<PieceInformation>().score = gameScores[2];
         }
 
         //white bishop
@@ -66,6 +79,7 @@ public class ChessBoardSetUp : MonoBehaviour
             rect.localPosition = position;
             piece.GetComponent<Bishop>().gridCoordinate = new Vector2(2 + (i * 3), 0);
             piece.GetComponent<Bishop>().isWhite = true;
+            piece.GetComponent<PieceInformation>().score = gameScores[3];
         }
         //white queen
         for (int i = 0; i < 1; i++)
@@ -76,16 +90,18 @@ public class ChessBoardSetUp : MonoBehaviour
             rect.localPosition = position;
             piece.GetComponent<Queen>().gridCoordinate = new Vector2(3, 0);
             piece.GetComponent<Queen>().isWhite = true;
+            piece.GetComponent<PieceInformation>().score = gameScores[4];
         }
         //end of white pieces
         //black pawns
         for (int i = 0; i < 8; i++)
         {
-            GameObject blackPawn = Instantiate(blackPawnPrefab, pieceParent);
-            RectTransform bpRect = blackPawn.GetComponent<RectTransform>();
+            GameObject piece = Instantiate(blackPawnPrefab, pieceParent);
+            RectTransform rect = piece.GetComponent<RectTransform>();
             Vector2 position = new Vector2((i * gridSpace) + gridOrigin, (6 * gridSpace) + gridOrigin);
-            bpRect.localPosition = position;
-            blackPawn.GetComponent<BlackPawn>().gridCoordinate = new Vector2(i, 6);
+            rect.localPosition = position;
+            piece.GetComponent<BlackPawn>().gridCoordinate = new Vector2(i, 6);
+            piece.GetComponent<PieceInformation>().score = gameScores[0];
         }
 
         //black rooks
@@ -97,6 +113,7 @@ public class ChessBoardSetUp : MonoBehaviour
             rect.localPosition = position;
             piece.GetComponent<Rook>().gridCoordinate = new Vector2(i * 7, 7);
             piece.GetComponent<Rook>().isWhite = false;
+            piece.GetComponent<PieceInformation>().score = gameScores[1];
         }
 
         //black knights
@@ -108,6 +125,7 @@ public class ChessBoardSetUp : MonoBehaviour
             rect.localPosition = position;
             piece.GetComponent<Knight>().gridCoordinate = new Vector2(1 + (i * 5), 7);
             piece.GetComponent<Knight>().isWhite = false;
+            piece.GetComponent<PieceInformation>().score = gameScores[2];
         }
 
         //black bishop
@@ -119,6 +137,7 @@ public class ChessBoardSetUp : MonoBehaviour
             rect.localPosition = position;
             piece.GetComponent<Bishop>().gridCoordinate = new Vector2(2 + (i * 3), 7);
             piece.GetComponent<Bishop>().isWhite = false;
+            piece.GetComponent<PieceInformation>().score = gameScores[3];
         }
         //black queen
         for (int i = 0; i < 1; i++)
@@ -129,6 +148,7 @@ public class ChessBoardSetUp : MonoBehaviour
             rect.localPosition = position;
             piece.GetComponent<Queen>().gridCoordinate = new Vector2(3, 7);
             piece.GetComponent<Queen>().isWhite = false;
+            piece.GetComponent<PieceInformation>().score = gameScores[4];
         }
         //end of black pieces
 
