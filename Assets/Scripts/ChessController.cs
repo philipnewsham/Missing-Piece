@@ -57,6 +57,7 @@ public class ChessController : MonoBehaviour
                 pieceInfo = info;
             }
         }
+        Debug.LogFormat("{0}x, {1}y, {2}",space.x,space.y,pieceInfo);
         return pieceInfo;
     }
 

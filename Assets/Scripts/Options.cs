@@ -36,7 +36,7 @@ public class Options : MonoBehaviour
 
         switch (type)
         {
-            case 0:
+            //case 0:
 
         }
 	}
