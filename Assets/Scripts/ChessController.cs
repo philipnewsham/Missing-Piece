@@ -15,6 +15,21 @@ public class ChessController : MonoBehaviour
     private int blackScore;
     private int whiteScore;
 
+    public Text whiteScoreText;
+    public Text blackScoreText;
+
+    public bool goalScore;
+    private int score;
+
+    public bool goalHighestTime;
+    private int minutes;
+
+    public bool goalHightestMove;
+    private int moves;
+
+    public bool goalCapture;
+    private int capturePiece;
+
     public void AddToPieceInfo()
     {
         pieceInformations = FindObjectsOfType<PieceInformation>();
@@ -61,6 +76,23 @@ public class ChessController : MonoBehaviour
             if (pieceInfo.isWhite) blackScore += pieceInfo.score;
             else whiteScore += pieceInfo.score;
             Destroy(pieceInfo.gameObject);
+            UpdateScores();
+        }
+    }
+
+    void UpdateScores()
+    {
+        whiteScoreText.text = string.Format("White: {0}", whiteScore);
+        blackScoreText.text = string.Format("Black: {0}", blackScore);
+
+        //check win conditions
+        if (goalCapture)
+        {
+
+        }
+        else if (goalScore)
+        {
+
         }
     }
 
