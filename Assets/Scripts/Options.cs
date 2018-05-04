@@ -5,39 +5,59 @@ using UnityEngine.UI;
 
 public class Options : MonoBehaviour
 {
-    public Button[] goalButtons;
-    public GameObject[] goalPanels;
     private ChessController chessController;
+    private List<bool> goalBools = new List<bool>();
+    public Button beginButton;
 
-	void Start ()
+    private int pointLimit;
+    private int turnLimit;
+
+    public Button[] pointLimitButtons;
+    public Button[] turnLimitButtons;
+    public Text pointLimitText;
+    public Text turnLimitText;
+
+    private string infinity = "\u221E";
+
+    void Start ()
     {
         chessController = FindObjectOfType<ChessController>();
-        goalButtons[0].onClick.AddListener(() => SwapGoalType(0));
-        goalButtons[1].onClick.AddListener(() => SwapGoalType(1));
-        goalButtons[2].onClick.AddListener(() => SwapGoalType(2));
+        beginButton.onClick.AddListener(() => BeginGame());
+
+        pointLimitButtons[0].onClick.AddListener(() => ChangePointLimit(-1));
+        pointLimitButtons[1].onClick.AddListener(() => ChangePointLimit(1));
+        turnLimitButtons[0].onClick.AddListener(() => ChangeTurnLimit(-1));
+        turnLimitButtons[1].onClick.AddListener(() => ChangeTurnLimit(1));
+
+        pointLimitText.text = infinity;
+        turnLimitText.text = infinity;
     }
-	
-	// Update is called once per frame
-	void SwapGoalType (int type)
+
+    void BeginGame()
     {
-        for (int i = 0; i < 3; i++)
-        {
-            if(i != type)
-            {
-                goalButtons[i].interactable = true;
-                goalPanels[i].SetActive(false);
-            }
-            else
-            {
-                goalButtons[i].interactable = false;
-                goalPanels[i].SetActive(true);
-            }
-        }
+        FindObjectOfType<ChessBoardSetUp>().SetUpGame();
+        gameObject.SetActive(false);
+    }
 
-        switch (type)
-        {
-            //case 0:
+    void ChangePointLimit(int point)
+    {
+        pointLimit = Mathf.Clamp(pointLimit + point,0,int.MaxValue);
+        pointLimitText.text = pointLimit == 0 ? "\u221E" : pointLimit.ToString();
+        chessController.ChangePointAmount(pointLimit);
+    }
 
-        }
-	}
+    void ChangeTurnLimit(int turn)
+    {
+        turnLimit = Mathf.Clamp(turnLimit + turn,0,int.MaxValue);
+        turnLimitText.text = turnLimit <= 0? "\u221E":turnLimit.ToString();
+        chessController.ChangeTurnAmount(turnLimit);
+    }
+
+    public ToggleGroup toggleGroup;
+    public GameObject[] parentPanels;
+
+    public void ToggleWinCondition()
+    {
+        // parentPanels[0].SetActive(toggleGroup.togg)
+    }
 }

@@ -30,19 +30,18 @@ public class ChessController : MonoBehaviour
     public bool goalCapture;
     private int capturePiece;
 
+    private int turnAmount;
+    private int currentTurn = -1;
+
     public void AddToPieceInfo()
     {
         pieceInformations = FindObjectsOfType<PieceInformation>();
         foreach(PieceInformation info in pieceInformations)
         {
             if (info.isWhite)
-            {
                 whitePieces.Add(info.gameObject.GetComponent<Button>());
-            }
             else
-            {
                 blackPieces.Add(info.gameObject.GetComponent<Button>());
-            }
         }
         EnablePieces();
     }
@@ -57,7 +56,7 @@ public class ChessController : MonoBehaviour
                 pieceInfo = info;
             }
         }
-        Debug.LogFormat("{0}x, {1}y, {2}",space.x,space.y,pieceInfo);
+        //Debug.LogFormat("{0}x, {1}y, {2}",space.x,space.y,pieceInfo);
         return pieceInfo;
     }
 
@@ -91,10 +90,16 @@ public class ChessController : MonoBehaviour
         {
 
         }
-        else if (goalScore)
-        {
+        else if (goalScore || score > 0)
+            CheckForWinner();
+    }
 
-        }
+    void CheckForWinner()
+    {
+        if (whiteScore >= score)
+            Debug.Log("white wins");
+        else if (blackScore >= score)
+            Debug.Log("black wins");
     }
 
     bool isWhite;
@@ -112,5 +117,28 @@ public class ChessController : MonoBehaviour
             if(blackPieces[i]!=null)
                 blackPieces[i].interactable = !isWhite;
         }
+        currentTurn++;
+        if(currentTurn == turnAmount && turnAmount > 0)
+        {
+            if (whiteScore > blackScore)
+                Debug.Log("White wins");
+            else if (whiteScore < blackScore)
+                Debug.Log("Black wins");
+            else
+                Debug.Log("it's a tie");
+            //finish game
+            Debug.Log("game end");
+        }
+        Debug.Log("moved piece");
+    }
+
+    public void ChangeTurnAmount(int turns)
+    {
+        turnAmount = turns*2;
+    }
+
+    public void ChangePointAmount(int points)
+    {
+        score = points;
     }
 }
