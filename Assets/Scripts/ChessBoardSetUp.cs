@@ -21,15 +21,22 @@ public class ChessBoardSetUp : MonoBehaviour
     private float gridOrigin;
 
     public bool editedScores;
-    private int[] pieceScores = new int[5] { 1, 5, 3, 3, 9 }; //pawn, rook, knight, bishop, queen
+    [HideInInspector]
+    public int[] pieceScores = new int[5] { 1, 5, 3, 3, 9 }; //pawn, rook, knight, bishop, queen
+
     private int[] gameScores;
+
+    ChessController chessController;
 
     void Start()
     {
-        ChessController chessController = GetComponent<ChessController>();
+        chessController = GetComponent<ChessController>();
         gridSpace = chessController.gridSize;
         gridOrigin = chessController.gridOrigin.x;
+    }
 
+    public void SetUpGame()
+    { 
         if (!editedScores)
         {
             gameScores = new int[5];
