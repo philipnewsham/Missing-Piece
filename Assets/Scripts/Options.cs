@@ -21,7 +21,23 @@ public class Options : MonoBehaviour
 
     public Text ruleText;
 
-    private string capturePiece = "Queen";
+    private int currentPiece;
+    public Button[] choosePieceButtons;
+    public Text choosePieceText;
+    public Image choosePieceIcon;
+    public Sprite[] pieceSprites;
+    private List<string> capturePiece = new List<string>()
+    {
+        "Queen",
+        "Bishop",
+        "Knight",
+        "Rook",
+        "Pawn"
+    };
+
+    public ToggleGroup toggleGroup;
+    public Toggle[] winConditionToggles;
+    public GameObject[] parentPanels;
 
     void Start ()
     {
@@ -32,6 +48,9 @@ public class Options : MonoBehaviour
         pointLimitButtons[1].onClick.AddListener(() => ChangePointLimit(1));
         turnLimitButtons[0].onClick.AddListener(() => ChangeTurnLimit(-1));
         turnLimitButtons[1].onClick.AddListener(() => ChangeTurnLimit(1));
+
+        choosePieceButtons[0].onClick.AddListener(() => ChangeCapturePiece(1));
+        choosePieceButtons[1].onClick.AddListener(() => ChangeCapturePiece(-1));
 
         pointLimitText.text = infinity;
         turnLimitText.text = infinity;
@@ -48,6 +67,14 @@ public class Options : MonoBehaviour
     {
         FindObjectOfType<ChessBoardSetUp>().SetUpGame();
         gameObject.SetActive(false);
+    }
+
+    void ChangeCapturePiece(int piece)
+    {
+        currentPiece = (currentPiece + piece >= 0) ? ((currentPiece + piece) % capturePiece.Count) : (capturePiece.Count - 1);
+        choosePieceText.text = capturePiece[currentPiece];
+        choosePieceIcon.sprite = pieceSprites[currentPiece];
+        UpdateRuleText();
     }
 
     void ChangePointLimit(int point)
@@ -67,13 +94,16 @@ public class Options : MonoBehaviour
         UpdateRuleText();
         CheckInteractive();
     }
-
-    public ToggleGroup toggleGroup;
-    public GameObject[] parentPanels;
-
+    
     public void ToggleWinCondition()
     {
-        // parentPanels[0].SetActive(toggleGroup.togg)
+        for (int i = 0; i < winConditionToggles.Length; i++)
+        {
+            goalBools[i] = winConditionToggles[i].isOn;
+            parentPanels[i].SetActive(winConditionToggles[i].isOn);
+        }
+
+        UpdateRuleText();
     }
 
     void UpdateRuleText()
@@ -88,7 +118,7 @@ public class Options : MonoBehaviour
         }
         if (goalBools[1])
         {
-            rule += string.Format("First to capture {0}.", capturePiece);
+            rule += string.Format("First to capture the opponent's {0}.", capturePiece[currentPiece]);
         }
 
         ruleText.text = rule;
