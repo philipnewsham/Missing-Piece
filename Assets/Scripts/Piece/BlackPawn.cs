@@ -17,14 +17,16 @@ public class BlackPawn : MonoBehaviour
     private Vector2 gridOrigin;
     public GameObject dismissButton;
     private GameObject dismissButtonClone;
+    private AudioSource audioSource;
 
     void Start()
     {
         chessController = FindObjectOfType<ChessController>();
         gridSize = chessController.gridSize;
         gridOrigin = chessController.gridOrigin;
+        audioSource = GetComponent<AudioSource>();
         rectTransform = GetComponent<RectTransform>();
-        GetComponent<Button>().onClick.AddListener(() => ShowMoves());
+        GetComponent<Button>().onClick.AddListener(() => { ShowMoves(); audioSource.Play(); });
         thisInformation = GetComponent<PieceInformation>();
         thisInformation.gridCoordinate = gridCoordinate;
         thisInformation.isWhite = false;

@@ -17,6 +17,7 @@ public class WhitePawn : MonoBehaviour
     private Vector2 gridOrigin;
     public GameObject dismissButton;
     private GameObject dismissButtonClone;
+    private AudioSource audioSource;
 
     void Start()
     {
@@ -24,7 +25,8 @@ public class WhitePawn : MonoBehaviour
         gridSize = chessController.gridSize;
         gridOrigin = chessController.gridOrigin;
         rectTransform = GetComponent<RectTransform>();
-        GetComponent<Button>().onClick.AddListener(() => ShowMoves());
+        audioSource = GetComponent<AudioSource>();
+        GetComponent<Button>().onClick.AddListener(() => { ShowMoves(); audioSource.Play(); });
         thisInformation = GetComponent<PieceInformation>();
         thisInformation.gridCoordinate = gridCoordinate;
         thisInformation.isWhite = true;
