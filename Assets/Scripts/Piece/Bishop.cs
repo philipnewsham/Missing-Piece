@@ -18,13 +18,16 @@ public class Bishop : MonoBehaviour
     private GameObject dismissButtonClone;
     public bool isWhite;
 
+    private AudioSource audioSource;
+
     void Start()
     {
         chessController = FindObjectOfType<ChessController>();
         gridSize = chessController.gridSize;
         gridOrigin = chessController.gridOrigin;
         rectTransform = GetComponent<RectTransform>();
-        GetComponent<Button>().onClick.AddListener(() => ShowMoves());
+        audioSource = GetComponent<AudioSource>();
+        GetComponent<Button>().onClick.AddListener(() => { ShowMoves(); PlaySound(); });
         thisInformation = GetComponent<PieceInformation>();
         thisInformation.gridCoordinate = gridCoordinate;
         thisInformation.isWhite = isWhite;
@@ -186,5 +189,10 @@ public class Bishop : MonoBehaviour
         gridCoordinate = moveCoordinate; //updates grid coordinate
         thisInformation.gridCoordinate = moveCoordinate; //updates piece information grid coordinate
         chessController.EnablePieces();
+    }
+
+    void PlaySound()
+    {
+        audioSource.Play();
     }
 }
