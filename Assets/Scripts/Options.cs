@@ -36,6 +36,12 @@ public class Options : MonoBehaviour
         pointLimitText.text = infinity;
         turnLimitText.text = infinity;
         UpdateRuleText();
+        CheckInteractive();
+    }
+
+    void CheckInteractive()
+    {
+        beginButton.interactable = !(goalBools[0] && pointLimit + turnLimit == 0);
     }
 
     void BeginGame()
@@ -50,6 +56,7 @@ public class Options : MonoBehaviour
         pointLimitText.text = pointLimit == 0 ? "\u221E" : pointLimit.ToString();
         chessController.ChangePointAmount(pointLimit);
         UpdateRuleText();
+        CheckInteractive();
     }
 
     void ChangeTurnLimit(int turn)
@@ -58,6 +65,7 @@ public class Options : MonoBehaviour
         turnLimitText.text = turnLimit <= 0? "\u221E":turnLimit.ToString();
         chessController.ChangeTurnAmount(turnLimit);
         UpdateRuleText();
+        CheckInteractive();
     }
 
     public ToggleGroup toggleGroup;
@@ -75,6 +83,8 @@ public class Options : MonoBehaviour
         {
             rule += pointLimit > 0 ? string.Format("First to {0} {1}", pointLimit,pointLimit==1?"point":"points") : "Highest points";
             rule += turnLimit > 0 ? string.Format(", in {0} {1}.", turnLimit,turnLimit==1?"turn":"turns") : ".";
+            if (turnLimit + pointLimit == 0)
+                rule = "Highest points in unlimited turns, select either a point limit or turn limit to play.";
         }
         if (goalBools[1])
         {
