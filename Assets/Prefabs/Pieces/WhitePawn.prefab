@@ -127,6 +127,7 @@ MonoBehaviour:
   moveButton: {fileID: 1184737761291820, guid: 525e163f6e8cff649bdf331565e560f2, type: 2}
   dismissButton: {fileID: 1726342228085774, guid: 3bb9d71b5c00f124eb045957b823e327,
     type: 2}
+  queenSprite: {fileID: 21300002, guid: 04ab46b2eaf651249bcbe601751238f8, type: 3}
 --- !u!114 &114758774175861138
 MonoBehaviour:
   m_ObjectHideFlags: 1
