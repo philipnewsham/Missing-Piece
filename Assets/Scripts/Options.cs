@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class Options : MonoBehaviour
 {
     private ChessController chessController;
-    private List<bool> goalBools = new List<bool>();
+    private List<bool> goalBools = new List<bool>() { true, false };
     public Button beginButton;
 
     private int pointLimit;
@@ -18,6 +18,10 @@ public class Options : MonoBehaviour
     public Text turnLimitText;
 
     private string infinity = "\u221E";
+
+    public Text ruleText;
+
+    private string capturePiece = "Queen";
 
     void Start ()
     {
@@ -31,6 +35,7 @@ public class Options : MonoBehaviour
 
         pointLimitText.text = infinity;
         turnLimitText.text = infinity;
+        UpdateRuleText();
     }
 
     void BeginGame()
@@ -44,6 +49,7 @@ public class Options : MonoBehaviour
         pointLimit = Mathf.Clamp(pointLimit + point,0,int.MaxValue);
         pointLimitText.text = pointLimit == 0 ? "\u221E" : pointLimit.ToString();
         chessController.ChangePointAmount(pointLimit);
+        UpdateRuleText();
     }
 
     void ChangeTurnLimit(int turn)
@@ -51,6 +57,7 @@ public class Options : MonoBehaviour
         turnLimit = Mathf.Clamp(turnLimit + turn,0,int.MaxValue);
         turnLimitText.text = turnLimit <= 0? "\u221E":turnLimit.ToString();
         chessController.ChangeTurnAmount(turnLimit);
+        UpdateRuleText();
     }
 
     public ToggleGroup toggleGroup;
@@ -59,5 +66,21 @@ public class Options : MonoBehaviour
     public void ToggleWinCondition()
     {
         // parentPanels[0].SetActive(toggleGroup.togg)
+    }
+
+    void UpdateRuleText()
+    {
+        string rule = "";
+        if (goalBools[0])
+        {
+            rule += pointLimit > 0 ? string.Format("First to {0} {1}", pointLimit,pointLimit==1?"point":"points") : "Highest points";
+            rule += turnLimit > 0 ? string.Format(", in {0} {1}.", turnLimit,turnLimit==1?"turn":"turns") : ".";
+        }
+        if (goalBools[1])
+        {
+            rule += string.Format("First to capture {0}.", capturePiece);
+        }
+
+        ruleText.text = rule;
     }
 }
