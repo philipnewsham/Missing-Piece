@@ -39,6 +39,8 @@ public class Options : MonoBehaviour
     public Toggle[] winConditionToggles;
     public GameObject[] parentPanels;
 
+    public Text inGameRules;
+
     void Start ()
     {
         chessController = FindObjectOfType<ChessController>();
@@ -121,6 +123,7 @@ public class Options : MonoBehaviour
             rule += string.Format("First to capture the opponent's {0}.", capturePiece[currentPiece]);
         }
 
+        inGameRules.text = string.Format("Rules: {0}", rule);
         ruleText.text = rule;
     }
 }
