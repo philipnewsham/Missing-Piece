@@ -311,7 +311,7 @@ RectTransform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 9774737}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -319,13 +319,13 @@ RectTransform:
   - {fileID: 1457153034}
   - {fileID: 1466225043}
   - {fileID: 79980208}
-  m_Father: {fileID: 1785748338}
-  m_RootOrder: 6
+  m_Father: {fileID: 1728086479}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 136.8, y: -35.8}
-  m_SizeDelta: {x: 250, y: 250}
+  m_AnchoredPosition: {x: 136.8, y: -35.80002}
+  m_SizeDelta: {x: 250, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &9774739
 MonoBehaviour:
@@ -691,7 +691,7 @@ GameObject:
   - component: {fileID: 79980210}
   - component: {fileID: 79980209}
   m_Layer: 5
-  m_Name: Button (1)
+  m_Name: PreviousPieceButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4682,7 +4682,18 @@ MonoBehaviour:
   m_Group: {fileID: 811615195}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1785748342}
+        m_MethodName: ToggleWinCondition
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Toggle+ToggleEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
   m_IsOn: 1
@@ -5736,7 +5747,18 @@ MonoBehaviour:
   m_Group: {fileID: 811615195}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1785748342}
+        m_MethodName: ToggleWinCondition
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Toggle+ToggleEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
   m_IsOn: 0
@@ -8275,7 +8297,7 @@ GameObject:
   - component: {fileID: 1457153036}
   - component: {fileID: 1457153035}
   m_Layer: 5
-  m_Name: Button
+  m_Name: NextPieceButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8453,7 +8475,7 @@ GameObject:
   - component: {fileID: 1466225045}
   - component: {fileID: 1466225044}
   m_Layer: 5
-  m_Name: Text
+  m_Name: CurrentPieceName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9895,74 +9917,6 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1690946662}
---- !u!1 &1697288021
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 1697288022}
-  - component: {fileID: 1697288024}
-  - component: {fileID: 1697288023}
-  m_Layer: 5
-  m_Name: CapturePanel
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!224 &1697288022
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1697288021}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1785748338}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -60}
-  m_SizeDelta: {x: 764.9, y: 227.5}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1697288023
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1697288021}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
-  m_RaycastTarget: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
---- !u!222 &1697288024
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1697288021}
 --- !u!1 &1705099085
 GameObject:
   m_ObjectHideFlags: 0
@@ -9993,7 +9947,7 @@ RectTransform:
   m_Children:
   - {fileID: 1437739898}
   m_Father: {fileID: 1785748338}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
@@ -10177,6 +10131,7 @@ RectTransform:
   - {fileID: 811615197}
   - {fileID: 972488126}
   - {fileID: 1637860329}
+  - {fileID: 9774738}
   m_Father: {fileID: 1785748338}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -10480,7 +10435,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1785748338}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -10664,10 +10619,8 @@ RectTransform:
   - {fileID: 1551584239}
   - {fileID: 759454129}
   - {fileID: 1728086479}
-  - {fileID: 1697288022}
   - {fileID: 1749010638}
   - {fileID: 1705099086}
-  - {fileID: 9774738}
   m_Father: {fileID: 1599475}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -10771,8 +10724,24 @@ MonoBehaviour:
   pointLimitText: {fileID: 1880309600}
   turnLimitText: {fileID: 1183189900}
   ruleText: {fileID: 759454130}
-  toggleGroup: {fileID: 0}
-  parentPanels: []
+  choosePieceButtons:
+  - {fileID: 1457153035}
+  - {fileID: 79980209}
+  choosePieceText: {fileID: 1466225044}
+  choosePieceIcon: {fileID: 1896649061}
+  pieceSprites:
+  - {fileID: 21300002, guid: 04ab46b2eaf651249bcbe601751238f8, type: 3}
+  - {fileID: 21300004, guid: 04ab46b2eaf651249bcbe601751238f8, type: 3}
+  - {fileID: 21300006, guid: 04ab46b2eaf651249bcbe601751238f8, type: 3}
+  - {fileID: 21300008, guid: 04ab46b2eaf651249bcbe601751238f8, type: 3}
+  - {fileID: 21300010, guid: 04ab46b2eaf651249bcbe601751238f8, type: 3}
+  toggleGroup: {fileID: 811615195}
+  winConditionToggles:
+  - {fileID: 811615196}
+  - {fileID: 972488127}
+  parentPanels:
+  - {fileID: 1637860328}
+  - {fileID: 9774737}
 --- !u!1 &1802475744
 GameObject:
   m_ObjectHideFlags: 0
@@ -11436,7 +11405,7 @@ GameObject:
   - component: {fileID: 1896649062}
   - component: {fileID: 1896649061}
   m_Layer: 5
-  m_Name: Image
+  m_Name: CapturePieceImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11455,11 +11424,11 @@ RectTransform:
   m_Father: {fileID: 9774738}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &1896649061
 MonoBehaviour:
   m_ObjectHideFlags: 0
