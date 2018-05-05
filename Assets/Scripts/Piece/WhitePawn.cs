@@ -18,6 +18,7 @@ public class WhitePawn : MonoBehaviour
     public GameObject dismissButton;
     private GameObject dismissButtonClone;
     private AudioSource audioSource;
+    public Sprite queenSprite;
 
     void Start()
     {
@@ -129,5 +130,27 @@ public class WhitePawn : MonoBehaviour
         thisInformation.gridCoordinate = moveCoordinate; //updates piece information grid coordinate
         chessController.EnablePieces();
         audioSource.Play();
+        if (CheckIfOtherSide(moveCoordinate.y))
+            UpgradePawnToQueen(moveCoordinate);
+    }
+
+    bool CheckIfOtherSide(float posY)
+    {
+        Debug.LogFormat("{0} = 7", posY);
+        return (Mathf.FloorToInt(posY) == 7) ? true : false;
+    }
+    //make a better script
+    void UpgradePawnToQueen(Vector2 coordinates)
+    {
+        //change image
+        GetComponent<Image>().sprite = queenSprite;
+        //change script
+        gameObject.AddComponent<Queen>();
+        Queen queen = GetComponent<Queen>();
+        queen.isWhite = true;
+        queen.gridCoordinate = coordinates;
+        queen.moveButton = moveButton;
+        queen.dismissButton = dismissButton;
+        this.enabled = false;
     }
 }
