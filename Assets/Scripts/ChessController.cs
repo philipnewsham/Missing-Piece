@@ -33,6 +33,8 @@ public class ChessController : MonoBehaviour
     private int turnAmount;
     private int currentTurn = -1;
 
+    public Text playerTurnText;
+
     public void AddToPieceInfo()
     {
         pieceInformations = FindObjectsOfType<PieceInformation>();
@@ -107,11 +109,14 @@ public class ChessController : MonoBehaviour
     {
         isWhite = !isWhite;
 
+        playerTurnText.text = string.Format("{0}'s turn",isWhite?"White":"Black");
+
         for (int i = 0; i < whitePieces.Count; i++)
         {
             if(whitePieces[i] != null)
                 whitePieces[i].interactable = isWhite;
         }
+
         for (int i = 0; i < blackPieces.Count; i++)
         {
             if(blackPieces[i]!=null)
@@ -120,6 +125,7 @@ public class ChessController : MonoBehaviour
         currentTurn++;
         if(currentTurn == turnAmount && turnAmount > 0)
         {
+            playerTurnText.text = "";
             if (whiteScore > blackScore)
                 Debug.Log("White wins");
             else if (whiteScore < blackScore)
