@@ -309,5 +309,6 @@ public class Queen : MonoBehaviour
         gridCoordinate = moveCoordinate; //updates grid coordinate
         thisInformation.gridCoordinate = moveCoordinate; //updates piece information grid coordinate
         chessController.EnablePieces();
+        audioSource.Play();
     }
 }
