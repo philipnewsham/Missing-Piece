@@ -3,6 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+public class PieceTitle
+{
+    public enum Piece
+    {
+        QUEEN,
+        BISHOP,
+        KNIGHT,
+        ROOK,
+        PAWN
+    }
+}
+
 public class ChessController : MonoBehaviour
 {
     private PieceInformation[] pieceInformations;
@@ -68,9 +80,7 @@ public class ChessController : MonoBehaviour
         foreach (PieceInformation info in pieceInformations)
         {
             if (info.gridCoordinate == space)
-            {
                 pieceInfo = info;
-            }
         }
 
         if (pieceInfo != null)
