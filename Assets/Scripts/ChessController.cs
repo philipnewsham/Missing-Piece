@@ -32,6 +32,7 @@ public class ChessController : MonoBehaviour
 
     private int turnAmount;
     private int currentTurn = -1;
+    public Text currentTurnText;
 
     public Text playerTurnText;
 
@@ -146,7 +147,7 @@ public class ChessController : MonoBehaviour
         isWhite = !isWhite;
 
         playerTurnText.text = string.Format("{0}'s turn",isWhite?"White":"Black");
-
+        currentTurnText.text = string.Format("Turn: {0}", currentTurn+2);
         for (int i = 0; i < whitePieces.Count; i++)
         {
             if(whitePieces[i] != null)
@@ -161,6 +162,7 @@ public class ChessController : MonoBehaviour
         currentTurn++;
         if(currentTurn == turnAmount && turnAmount > 0)
         {
+            currentTurnText.text = "";
             playerTurnText.text = "";
             if (whiteScore > blackScore)
                 WhiteWins();
