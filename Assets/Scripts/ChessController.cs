@@ -58,7 +58,6 @@ public class ChessController : MonoBehaviour
                 pieceInfo = info;
             }
         }
-        //Debug.LogFormat("{0}x, {1}y, {2}",space.x,space.y,pieceInfo);
         return pieceInfo;
     }
 
@@ -97,6 +96,7 @@ public class ChessController : MonoBehaviour
                     blackPieceCount++;
             }
         }
+
         if (whitePieceCount == 1)
             BlackWins();
         if (blackPieceCount == 1)
@@ -135,6 +135,11 @@ public class ChessController : MonoBehaviour
         Debug.Log("white wins");
     }
 
+    void TieGame()
+    {
+        Debug.Log("It's a tie!");
+    }
+
     bool isWhite;
     public void EnablePieces()
     {
@@ -158,14 +163,19 @@ public class ChessController : MonoBehaviour
         {
             playerTurnText.text = "";
             if (whiteScore > blackScore)
-                Debug.Log("White wins");
+                WhiteWins();
             else if (whiteScore < blackScore)
-                Debug.Log("Black wins");
+                BlackWins();
             else
-                Debug.Log("it's a tie");
-            //finish game
-            Debug.Log("game end");
+                TieGame();
+
+            GameFinished();
         }
+    }
+
+    void GameFinished()
+    {
+        Debug.Log("game ends");
     }
 
     public void ChangeTurnAmount(int turns)

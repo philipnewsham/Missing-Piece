@@ -52,17 +52,14 @@ public class WhiteBishop : MonoBehaviour
                         checkInfo = chessController.CheckPieceOnSquare(checkSpace);
                         if(gridCoordinate.x + i > 7 || gridCoordinate.y + i > 7 || (checkInfo!=null && checkInfo.isWhite == thisInformation.isWhite))
                         {
-                            Debug.LogFormat("x = {0}, y = {1}, info = {2}", gridCoordinate.x + i, gridCoordinate.y + i, checkInfo);
                             isFinished = true;
                         }
                         else if(checkInfo == null)
                         {
-                            Debug.Log("empty space");
                             possibleMoves.Add(checkSpace);
                         }
                         else if(checkInfo.isWhite == !thisInformation.isWhite)
                         {
-                            Debug.Log("enemy");
                             possibleMoves.Add(checkSpace);
                             isFinished = true;
                         }
@@ -86,12 +83,10 @@ public class WhiteBishop : MonoBehaviour
                         }
                         else if (checkInfo == null)
                         {
-                            Debug.Log("empty space");
                             possibleMoves.Add(checkSpace);
                         }
                         else if (checkInfo.isWhite == !thisInformation.isWhite)
                         {
-                            Debug.Log("enemy");
                             possibleMoves.Add(checkSpace);
                             isFinished = true;
                         }
@@ -111,17 +106,14 @@ public class WhiteBishop : MonoBehaviour
                         checkInfo = chessController.CheckPieceOnSquare(checkSpace);
                         if (gridCoordinate.x + i > 7 || gridCoordinate.y - i < 0 || (checkInfo != null && checkInfo.isWhite == thisInformation.isWhite))
                         {
-                            Debug.LogFormat("x = {0}, y = {1}, info = {2}", gridCoordinate.x + i, gridCoordinate.y - i, checkInfo);
                             isFinished = true;
                         }
                         else if (checkInfo == null)
                         {
-                            Debug.Log("empty space");
                             possibleMoves.Add(checkSpace);
                         }
                         else if (checkInfo.isWhite == !thisInformation.isWhite)
                         {
-                            Debug.Log("enemy");
                             possibleMoves.Add(checkSpace);
                             isFinished = true;
                         }
@@ -141,17 +133,14 @@ public class WhiteBishop : MonoBehaviour
                         checkInfo = chessController.CheckPieceOnSquare(checkSpace);
                         if (gridCoordinate.x - i < 0 || gridCoordinate.y - i < 0 || (checkInfo != null && checkInfo.isWhite == thisInformation.isWhite))
                         {
-                            Debug.LogFormat("x = {0}, y = {1}, info = {2}", gridCoordinate.x - i, gridCoordinate.y + i, checkInfo);
                             isFinished = true;
                         }
                         else if (checkInfo == null)
                         {
-                            Debug.Log("empty space");
                             possibleMoves.Add(checkSpace);
                         }
                         else if (checkInfo.isWhite == !thisInformation.isWhite)
                         {
-                            Debug.Log("enemy");
                             possibleMoves.Add(checkSpace);
                             isFinished = true;
                         }
@@ -191,7 +180,6 @@ public class WhiteBishop : MonoBehaviour
     void MovePiece(Vector2 moveCoordinate)//moving the piece
     {
         ShowMoves();//this hides the move buttons
-        Debug.Log("move piece");
         Vector2 movePos = new Vector2((moveCoordinate.x * gridSize) + gridOrigin.x, (moveCoordinate.y * gridSize) + gridOrigin.y); //selects move pos
         rectTransform.localPosition = movePos; //moves piece
         chessController.TakePiece(moveCoordinate); //asks controller to remove any piece landed on
