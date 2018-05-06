@@ -79,7 +79,28 @@ public class ChessController : MonoBehaviour
             else whiteScore += pieceInfo.score;
             Destroy(pieceInfo.gameObject);
             UpdateScores();
+            CheckPiecesRemaining();
         }
+    }
+
+    void CheckPiecesRemaining()
+    {
+        int whitePieceCount = 0;
+        int blackPieceCount = 0;
+        foreach (PieceInformation info in pieceInformations)
+        {
+            if (info != null)
+            { 
+                if (info.isWhite)
+                    whitePieceCount++;
+                else
+                    blackPieceCount++;
+            }
+        }
+        if (whitePieceCount == 1)
+            BlackWins();
+        if (blackPieceCount == 1)
+            WhiteWins();
     }
 
     void UpdateScores()
@@ -99,9 +120,19 @@ public class ChessController : MonoBehaviour
     void CheckForWinner()
     {
         if (whiteScore >= score)
-            Debug.Log("white wins");
+            WhiteWins();
         else if (blackScore >= score)
-            Debug.Log("black wins");
+            BlackWins();
+    }
+
+    void BlackWins()
+    {
+        Debug.Log("black wins");
+    }
+
+    void WhiteWins()
+    {
+        Debug.Log("white wins");
     }
 
     bool isWhite;
@@ -135,7 +166,6 @@ public class ChessController : MonoBehaviour
             //finish game
             Debug.Log("game end");
         }
-        Debug.Log("moved piece");
     }
 
     public void ChangeTurnAmount(int turns)
