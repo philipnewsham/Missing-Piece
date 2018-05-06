@@ -194,7 +194,6 @@ public class WhiteRook : MonoBehaviour
     void MovePiece(Vector2 moveCoordinate)//moving the piece
     {
         ShowMoves();//this hides the move buttons
-        Debug.Log("move piece");
         Vector2 movePos = new Vector2((moveCoordinate.x * gridSize) + gridOrigin.x, (moveCoordinate.y * gridSize) + gridOrigin.y); //selects move pos
         rectTransform.localPosition = movePos; //moves piece
         chessController.TakePiece(moveCoordinate); //asks controller to remove any piece landed on

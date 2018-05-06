@@ -136,7 +136,6 @@ public class WhitePawn : MonoBehaviour
 
     bool CheckIfOtherSide(float posY)
     {
-        Debug.LogFormat("{0} = 7", posY);
         return (Mathf.FloorToInt(posY) == 7) ? true : false;
     }
     //make a better script
