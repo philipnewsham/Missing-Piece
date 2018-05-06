@@ -1,0 +1,87 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!241 &24100000
+AudioMixerController:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: SFXMixer
+  m_OutputGroup: {fileID: 0}
+  m_MasterGroup: {fileID: 24300002}
+  m_Snapshots:
+  - {fileID: 24500006}
+  - {fileID: 245517446645074032}
+  - {fileID: 245317981741020464}
+  m_StartSnapshot: {fileID: 24500006}
+  m_SuspendThreshold: -80
+  m_EnableSuspend: 1
+  m_UpdateMode: 0
+  m_ExposedParameters: []
+  m_AudioMixerGroupViews:
+  - guids:
+    - bbb5ec5d3d161624eb0c86d5ca76b65f
+    name: View
+  m_CurrentViewIndex: 0
+  m_TargetSnapshot: {fileID: 245317981741020464}
+--- !u!243 &24300002
+AudioMixerGroupController:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: Master
+  m_AudioMixer: {fileID: 24100000}
+  m_GroupID: bbb5ec5d3d161624eb0c86d5ca76b65f
+  m_Children: []
+  m_Volume: 8c4a6ca215b88de408526fc354794393
+  m_Pitch: 3b9bd8289aa03624596ed3ea643831ca
+  m_Effects:
+  - {fileID: 24400004}
+  m_UserColorIndex: 0
+  m_Mute: 0
+  m_Solo: 0
+  m_BypassEffects: 0
+--- !u!244 &24400004
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: 
+  m_EffectID: 944fc350374419143a381a4e2d3d7dfc
+  m_EffectName: Attenuation
+  m_MixLevel: 11105cb18c9b1bd4587eacbb0d2bf55f
+  m_Parameters: []
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
+--- !u!245 &24500006
+AudioMixerSnapshotController:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: Snapshot
+  m_AudioMixer: {fileID: 24100000}
+  m_SnapshotID: ff1e87e30d0f16142a50fbb5b6a76991
+  m_FloatValues: {}
+  m_TransitionOverrides: {}
+--- !u!245 &245317981741020464
+AudioMixerSnapshotController:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: SFX_On
+  m_AudioMixer: {fileID: 24100000}
+  m_SnapshotID: 8edda1822fee62f47b7686d4c45c39f6
+  m_FloatValues:
+    8c4a6ca215b88de408526fc354794393: -0.002441872
+  m_TransitionOverrides: {}
+--- !u!245 &245517446645074032
+AudioMixerSnapshotController:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: SFX_Mute
+  m_AudioMixer: {fileID: 24100000}
+  m_SnapshotID: 6e6a23f4572bc5344ab6781ba2aac933
+  m_FloatValues:
+    8c4a6ca215b88de408526fc354794393: -80
+  m_TransitionOverrides: {}
