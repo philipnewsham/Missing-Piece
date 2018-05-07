@@ -46,142 +46,42 @@ public class ChessBoardSetUp : MonoBehaviour
             gameScores = new int[5];
             gameScores = pieceScores;
         }
-        //white pawns
+        bool isWhite = true;
+        CreatePiece(new Vector2(0, 0), isWhite, PieceTitle.Piece.ROOK);
+        CreatePiece(new Vector2(1, 0), isWhite, PieceTitle.Piece.KNIGHT);
+        CreatePiece(new Vector2(2, 0), isWhite, PieceTitle.Piece.BISHOP);
+        CreatePiece(new Vector2(3, 0), isWhite, PieceTitle.Piece.QUEEN);
+        CreatePiece(new Vector2(5, 0), isWhite, PieceTitle.Piece.BISHOP);
+        CreatePiece(new Vector2(6, 0), isWhite, PieceTitle.Piece.KNIGHT);
+        CreatePiece(new Vector2(7, 0), isWhite, PieceTitle.Piece.ROOK);
         for (int i = 0; i < 8; i++)
-        {
-            GameObject piece = Instantiate(piecePrefab, pieceParent);
-            RectTransform rect = piece.GetComponent<RectTransform>();
-            Vector2 position = new Vector2((i * gridSpace) + gridOrigin, (1 * gridSpace) + gridOrigin);
-            rect.localPosition = position;
-            piece.GetComponent<PieceController>().gridCoordinate = new Vector2(i, 1);
-            piece.GetComponent<PieceController>().isWhite = true;
-            piece.GetComponent<PieceController>().piece = PieceTitle.Piece.PAWN;
-            piece.GetComponent<PieceInformation>().score = gameScores[0];
-            piece.GetComponent<Image>().sprite = pieceSprites[(int)PieceTitle.Piece.PAWN];
-        }
-        //white rooks
-        for (int i = 0; i < 2; i++)
-        {
-            GameObject piece = Instantiate(piecePrefab, pieceParent);
-            RectTransform rect = piece.GetComponent<RectTransform>();
-            Vector2 position = new Vector2(((i * 7) * gridSpace) + gridOrigin, (0 * gridSpace) + gridOrigin);
-            rect.localPosition = position;
-            piece.GetComponent<PieceController>().gridCoordinate = new Vector2(i * 7, 0);
-            piece.GetComponent<PieceController>().isWhite = true;
-            piece.GetComponent<PieceController>().piece = PieceTitle.Piece.ROOK;
-            piece.GetComponent<PieceInformation>().score = gameScores[1];
-            piece.GetComponent<Image>().sprite = pieceSprites[(int)PieceTitle.Piece.ROOK];
-        }
-        //white knights
-        for (int i = 0; i < 2; i++)
-        {
-            GameObject piece = Instantiate(piecePrefab, pieceParent);
-            RectTransform rect = piece.GetComponent<RectTransform>();
-            Vector2 position = new Vector2(((1 + (i * 5)) * gridSpace) + gridOrigin, (0 * gridSpace) + gridOrigin);
-            rect.localPosition = position;
-            piece.GetComponent<PieceController>().gridCoordinate = new Vector2(1 + (i * 5), 0);
-            piece.GetComponent<PieceController>().isWhite = true;
-            piece.GetComponent<PieceController>().piece = PieceTitle.Piece.KNIGHT;
-            piece.GetComponent<PieceInformation>().score = gameScores[2];
-            piece.GetComponent<Image>().sprite = pieceSprites[(int)PieceTitle.Piece.KNIGHT];
-        }
-        //white bishops
-        for (int i = 0; i < 2; i++)
-        {
-            GameObject piece = Instantiate(piecePrefab, pieceParent);
-            RectTransform rect = piece.GetComponent<RectTransform>();
-            Vector2 position = new Vector2(((2 + (i * 3)) * gridSpace) + gridOrigin, (0 * gridSpace) + gridOrigin);
-            rect.localPosition = position;
-            piece.GetComponent<PieceController>().gridCoordinate = new Vector2(2 + (i * 3), 0);
-            piece.GetComponent<PieceController>().isWhite = true;
-            piece.GetComponent<PieceController>().piece = PieceTitle.Piece.BISHOP;
-            piece.GetComponent<PieceInformation>().score = gameScores[3];
-            piece.GetComponent<Image>().sprite = pieceSprites[(int)PieceTitle.Piece.BISHOP];
-        }
-
-        //white Queen
-        for (int i = 0; i < 1; i++)
-        {
-            GameObject piece = Instantiate(piecePrefab, pieceParent);
-            RectTransform rect = piece.GetComponent<RectTransform>();
-            Vector2 position = new Vector2((3 * gridSpace) + gridOrigin, 0 + gridOrigin);
-            rect.localPosition = position;
-            piece.GetComponent<PieceController>().gridCoordinate = new Vector2(3, 0);
-            piece.GetComponent<PieceController>().isWhite = true;
-            piece.GetComponent<PieceController>().piece = PieceTitle.Piece.QUEEN;
-            piece.GetComponent<PieceInformation>().score = gameScores[4];
-            piece.GetComponent<Image>().sprite = pieceSprites[(int)PieceTitle.Piece.QUEEN];
-        }
-
-        //end of white pieces
-        //black pawns
+            CreatePiece(new Vector2(i, 1), isWhite, PieceTitle.Piece.PAWN);
+        
+        isWhite = false;
+        CreatePiece(new Vector2(0, 7), isWhite, PieceTitle.Piece.ROOK);
+        CreatePiece(new Vector2(1, 7), isWhite, PieceTitle.Piece.KNIGHT);
+        CreatePiece(new Vector2(2, 7), isWhite, PieceTitle.Piece.BISHOP);
+        CreatePiece(new Vector2(3, 7), isWhite, PieceTitle.Piece.QUEEN);
+        CreatePiece(new Vector2(5, 7), isWhite, PieceTitle.Piece.BISHOP);
+        CreatePiece(new Vector2(6, 7), isWhite, PieceTitle.Piece.KNIGHT);
+        CreatePiece(new Vector2(7, 7), isWhite, PieceTitle.Piece.ROOK);
         for (int i = 0; i < 8; i++)
-        {
-            GameObject piece = Instantiate(piecePrefab, pieceParent);
-            RectTransform rect = piece.GetComponent<RectTransform>();
-            Vector2 position = new Vector2((i * gridSpace) + gridOrigin, (6 * gridSpace) + gridOrigin);
-            rect.localPosition = position;
-            piece.GetComponent<PieceController>().gridCoordinate = new Vector2(i, 6);
-            piece.GetComponent<PieceController>().isWhite = false;
-            piece.GetComponent<PieceController>().piece = PieceTitle.Piece.PAWN;
-            piece.GetComponent<PieceInformation>().score = gameScores[0];
-            piece.GetComponent<Image>().sprite = pieceSprites[(int)PieceTitle.Piece.PAWN + System.Enum.GetValues(typeof(PieceTitle.Piece)).Length];
-        }
-
-        for (int i = 0; i < 2; i++)
-        {
-            GameObject piece = Instantiate(piecePrefab, pieceParent);
-            RectTransform rect = piece.GetComponent<RectTransform>();
-            Vector2 position = new Vector2(((i * 7) * gridSpace) + gridOrigin, (7 * gridSpace) + gridOrigin);
-            rect.localPosition = position;
-            piece.GetComponent<PieceController>().gridCoordinate = new Vector2(i * 7, 7);
-            piece.GetComponent<PieceController>().isWhite = false;
-            piece.GetComponent<PieceController>().piece = PieceTitle.Piece.ROOK;
-            piece.GetComponent<PieceInformation>().score = gameScores[1];
-            piece.GetComponent<Image>().sprite = pieceSprites[(int)PieceTitle.Piece.ROOK + System.Enum.GetValues(typeof(PieceTitle.Piece)).Length];
-        }
-
-        for (int i = 0; i < 2; i++)
-        {
-            GameObject piece = Instantiate(piecePrefab, pieceParent);
-            RectTransform rect = piece.GetComponent<RectTransform>();
-            Vector2 position = new Vector2(((1 + (i * 5)) * gridSpace) + gridOrigin, (7 * gridSpace) + gridOrigin);
-            rect.localPosition = position;
-            piece.GetComponent<PieceController>().gridCoordinate = new Vector2(1 + (i * 5), 7);
-            piece.GetComponent<PieceController>().isWhite = false;
-            piece.GetComponent<PieceController>().piece = PieceTitle.Piece.KNIGHT;
-            piece.GetComponent<PieceInformation>().score = gameScores[2];
-            piece.GetComponent<Image>().sprite = pieceSprites[(int)PieceTitle.Piece.KNIGHT + System.Enum.GetValues(typeof(PieceTitle.Piece)).Length];
-        }
-
-        for (int i = 0; i < 2; i++)
-        {
-            GameObject piece = Instantiate(piecePrefab, pieceParent);
-            RectTransform rect = piece.GetComponent<RectTransform>();
-            Vector2 position = new Vector2(((2 + (i * 3)) * gridSpace) + gridOrigin, (7 * gridSpace) + gridOrigin);
-            rect.localPosition = position;
-            piece.GetComponent<PieceController>().gridCoordinate = new Vector2(2 + (i * 3), 7);
-            piece.GetComponent<PieceController>().isWhite = false;
-            piece.GetComponent<PieceController>().piece = PieceTitle.Piece.BISHOP;
-            piece.GetComponent<PieceInformation>().score = gameScores[3];
-            piece.GetComponent<Image>().sprite = pieceSprites[(int)PieceTitle.Piece.BISHOP + System.Enum.GetValues(typeof(PieceTitle.Piece)).Length];
-        }
-
-        for (int i = 0; i < 1; i++)
-        {
-            GameObject piece = Instantiate(piecePrefab, pieceParent);
-            RectTransform rect = piece.GetComponent<RectTransform>();
-            Vector2 position = new Vector2((3 * gridSpace) + gridOrigin, (7 * gridSpace) + gridOrigin);
-            rect.localPosition = position;
-            piece.GetComponent<PieceController>().gridCoordinate = new Vector2(3, 7);
-            piece.GetComponent<PieceController>().isWhite = false;
-            piece.GetComponent<PieceController>().piece = PieceTitle.Piece.QUEEN;
-            piece.GetComponent<PieceInformation>().score = gameScores[4];
-            piece.GetComponent<Image>().sprite = pieceSprites[(int)PieceTitle.Piece.QUEEN + System.Enum.GetValues(typeof(PieceTitle.Piece)).Length];
-        }
-        //end of black pieces
-
+            CreatePiece(new Vector2(i, 6), isWhite, PieceTitle.Piece.PAWN);
+        
         StartCoroutine(AddInfo(chessController));
+    }
+
+    void CreatePiece(Vector2 pos, bool isWhite, PieceTitle.Piece pieceType)
+    {
+        GameObject piece = Instantiate(piecePrefab, pieceParent);
+        RectTransform rect = piece.GetComponent<RectTransform>();
+        Vector2 position = new Vector2((pos.x * gridSpace) + gridOrigin, (pos.y * gridSpace) + gridOrigin);
+        rect.localPosition = position;
+        piece.GetComponent<PieceController>().gridCoordinate = new Vector2(pos.x, pos.y);
+        piece.GetComponent<PieceController>().isWhite = isWhite;
+        piece.GetComponent<PieceController>().piece = pieceType;
+        piece.GetComponent<PieceInformation>().score = gameScores[0];
+        piece.GetComponent<Image>().sprite = pieceSprites[(int)pieceType + (System.Enum.GetValues(typeof(PieceTitle.Piece)).Length * (isWhite?0:1))];
     }
 
     IEnumerator AddInfo(ChessController chessController)
