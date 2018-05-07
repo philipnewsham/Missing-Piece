@@ -74,7 +74,6 @@ public class ChessController : MonoBehaviour
         {
             if (pieceInfo.isWhite) blackScore += pieceInfo.score;
             else whiteScore += pieceInfo.score;
-            Debug.Log(pieceInfo.gameObject.name);
             Destroy(pieceInfo.gameObject);
             UpdateScores();
             CheckPiecesRemaining();
@@ -118,12 +117,7 @@ public class ChessController : MonoBehaviour
         whiteScoreText.text = string.Format("White: {0}", whiteScore);
         blackScoreText.text = string.Format("Black: {0}", blackScore);
 
-        //check win conditions
-        if (goalCapture)
-        {
-
-        }
-        else if (goalScore || score > 0)
+        if (goalScore || score > 0)
             CheckForWinner();
     }
 
@@ -135,18 +129,30 @@ public class ChessController : MonoBehaviour
             BlackWins();
     }
 
+    public GameObject victoryScreen;
+    public Text victoryText;
+
     void BlackWins()
     {
+        victoryScreen.SetActive(true);
+        victoryText.text = "Black Wins!";
+        //victoryText.color = Color.black;
         Debug.Log("black wins");
     }
 
     void WhiteWins()
     {
+        victoryScreen.SetActive(true);
+        victoryText.text = "White Wins!";
+        //victoryText.color = Color.white;
         Debug.Log("white wins");
     }
 
     void TieGame()
     {
+        victoryScreen.SetActive(true);
+        victoryText.text = "It's a tie!";
+        //victoryText.color = Color.grey;
         Debug.Log("It's a tie!");
     }
 
@@ -197,5 +203,25 @@ public class ChessController : MonoBehaviour
     public void ChangePointAmount(int points)
     {
         score = points;
+    }
+
+    public void Reset()
+    {
+        ClearAllPieces();
+        currentTurn = -2;
+        whiteScore = 0;
+        blackScore = 0;
+        pieceInformations = null;
+        UpdateScores();
+        currentTurnText.text = "Turn: 0";
+    }
+
+    public void ClearAllPieces()
+    {
+        foreach (PieceInformation info in pieceInformations)
+        {
+            if (info != null)
+                Destroy(info.gameObject);
+        }
     }
 }
