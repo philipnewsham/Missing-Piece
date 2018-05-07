@@ -63,34 +63,33 @@ public class ChessController : MonoBehaviour
 
     public PieceInformation CheckPieceOnSquare(Vector2 space)
     {
-        PieceInformation pieceInfo = null;
-        foreach(PieceInformation info in pieceInformations)
-        {
-            if(info.gridCoordinate == space)
-            {
-                pieceInfo = info;
-            }
-        }
-        return pieceInfo;
+        return ReturnPieceInformation(space);
     }
 
     public void TakePiece(Vector2 space)
     {
-        PieceInformation pieceInfo = null;
-        foreach (PieceInformation info in pieceInformations)
-        {
-            if (info.gridCoordinate == space)
-                pieceInfo = info;
-        }
+        PieceInformation pieceInfo = ReturnPieceInformation(space);
 
         if (pieceInfo != null)
         {
             if (pieceInfo.isWhite) blackScore += pieceInfo.score;
             else whiteScore += pieceInfo.score;
+            Debug.Log(pieceInfo.gameObject.name);
             Destroy(pieceInfo.gameObject);
             UpdateScores();
             CheckPiecesRemaining();
         }
+    }
+
+    PieceInformation ReturnPieceInformation(Vector2 position)
+    {
+        PieceInformation pieceInfo = null;
+        foreach (PieceInformation info in pieceInformations)
+        {
+            if (info != null && info.gridCoordinate == position)
+                pieceInfo = info;
+        }
+        return pieceInfo;
     }
 
     void CheckPiecesRemaining()
