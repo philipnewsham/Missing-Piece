@@ -5,17 +5,6 @@ using UnityEngine.UI;
 
 public class ChessBoardSetUp : MonoBehaviour
 {
-    public GameObject whitePawnPrefab;
-    public GameObject whiteRookPrefab;
-    public GameObject whiteKnightPrefab;
-    public GameObject whiteBishopPrefab;
-    public GameObject whiteQueenPrefab;
-
-    public GameObject blackPawnPrefab;
-    public GameObject blackRookPrefab;
-    public GameObject blackKnightPrefab;
-    public GameObject blackBishopPrefab;
-    public GameObject blackQueenPrefab;
     public GameObject piecePrefab;
 
     public Transform pieceParent;
@@ -23,14 +12,14 @@ public class ChessBoardSetUp : MonoBehaviour
     private float gridOrigin;
 
     public bool editedScores;
+
     [HideInInspector]
     public int[] pieceScores = new int[5] { 1, 5, 3, 3, 9 }; //pawn, rook, knight, bishop, queen
 
     private int[] gameScores;
-
     ChessController chessController;
-
     public Sprite[] pieceSprites;
+    private List<string> pieceNames = new List<string>(){"Queen","Bishop","Knight","Rook","Pawn"};
     
     void Start()
     {
@@ -74,6 +63,7 @@ public class ChessBoardSetUp : MonoBehaviour
     void CreatePiece(Vector2 pos, bool isWhite, PieceTitle.Piece pieceType)
     {
         GameObject piece = Instantiate(piecePrefab, pieceParent);
+        piece.name = string.Format("{0}{1}", isWhite ? "White" : "Black", pieceNames[(int)pieceType]);
         RectTransform rect = piece.GetComponent<RectTransform>();
         Vector2 position = new Vector2((pos.x * gridSpace) + gridOrigin, (pos.y * gridSpace) + gridOrigin);
         rect.localPosition = position;
