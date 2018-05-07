@@ -17,7 +17,8 @@ public class ShowMoves : MonoBehaviour
         switch (piece)
         {
             case PieceTitle.Piece.QUEEN:
-                possibleMoves = QueenMoves(position, isWhite);
+                possibleMoves = BishopMoves(position, isWhite);
+                possibleMoves.AddRange(RookMoves(position, isWhite));
                 break;
             case PieceTitle.Piece.BISHOP:
                 possibleMoves = BishopMoves(position, isWhite);
@@ -34,246 +35,7 @@ public class ShowMoves : MonoBehaviour
         }
         return possibleMoves;
     }
-
-    List<Vector2> QueenMoves(Vector2 position, bool isWhite)
-    {
-        Vector2 gridCoordinate = position;
-        List<Vector2> possibleMoves = new List<Vector2>();
-        Vector2 checkSpace = new Vector2();
-        PieceInformation checkInfo = null;
-
-        //checking diagonal UR
-        if (gridCoordinate.x < 7 && gridCoordinate.y < 7)
-        {
-            bool isFinished = false;
-            for (int i = 1; i < 8; i++)
-            {
-                if (!isFinished)
-                {
-                    checkSpace = new Vector2(gridCoordinate.x + i, gridCoordinate.y + i);
-                    checkInfo = chessController.CheckPieceOnSquare(checkSpace);
-                    if (gridCoordinate.x + i > 7 || gridCoordinate.y + i > 7 || (checkInfo != null && checkInfo.isWhite == isWhite))
-                    {
-                        isFinished = true;
-                    }
-                    else if (checkInfo == null)
-                    {
-                        possibleMoves.Add(checkSpace);
-                    }
-                    else if (checkInfo.isWhite == !isWhite)
-                    {
-                        possibleMoves.Add(checkSpace);
-                        isFinished = true;
-                    }
-                }
-            }
-        }
-
-        //checking diagonal UL
-        if (gridCoordinate.x > 0 && gridCoordinate.y < 7)
-        {
-            bool isFinished = false;
-            for (int i = 1; i < 8; i++)
-            {
-                if (!isFinished)
-                {
-                    checkSpace = new Vector2(gridCoordinate.x - i, gridCoordinate.y + i);
-                    checkInfo = chessController.CheckPieceOnSquare(checkSpace);
-                    if (gridCoordinate.x - i < 0 || gridCoordinate.y + i > 7 || (checkInfo != null && checkInfo.isWhite == isWhite))
-                    {
-                        isFinished = true;
-                    }
-                    else if (checkInfo == null)
-                    {
-                        possibleMoves.Add(checkSpace);
-                    }
-                    else if (checkInfo.isWhite == !isWhite)
-                    {
-                        possibleMoves.Add(checkSpace);
-                        isFinished = true;
-                    }
-                }
-            }
-        }
-
-        //checking diagonal DR
-        if (gridCoordinate.x < 7 && gridCoordinate.y > 0)
-        {
-            bool isFinished = false;
-            for (int i = 1; i < 8; i++)
-            {
-                if (!isFinished)
-                {
-                    checkSpace = new Vector2(gridCoordinate.x + i, gridCoordinate.y - i);
-                    checkInfo = chessController.CheckPieceOnSquare(checkSpace);
-                    if (gridCoordinate.x + i > 7 || gridCoordinate.y - i < 0 || (checkInfo != null && checkInfo.isWhite == isWhite))
-                    {
-                        isFinished = true;
-                    }
-                    else if (checkInfo == null)
-                    {
-                        possibleMoves.Add(checkSpace);
-                    }
-                    else if (checkInfo.isWhite == !isWhite)
-                    {
-                        possibleMoves.Add(checkSpace);
-                        isFinished = true;
-                    }
-                }
-            }
-        }
-
-        //checking diagonal DL
-        if (gridCoordinate.x > 0 && gridCoordinate.y > 0)
-        {
-            bool isFinished = false;
-            for (int i = 1; i < 8; i++)
-            {
-                if (!isFinished)
-                {
-                    checkSpace = new Vector2(gridCoordinate.x - i, gridCoordinate.y - i);
-                    checkInfo = chessController.CheckPieceOnSquare(checkSpace);
-                    if (gridCoordinate.x - i < 0 || gridCoordinate.y - i < 0 || (checkInfo != null && checkInfo.isWhite == isWhite))
-                    {
-                        isFinished = true;
-                    }
-                    else if (checkInfo == null)
-                    {
-                        possibleMoves.Add(checkSpace);
-                    }
-                    else if (checkInfo.isWhite == !isWhite)
-                    {
-                        possibleMoves.Add(checkSpace);
-                        isFinished = true;
-                    }
-                }
-            }
-        }
-        //checking down line
-        if (gridCoordinate.y > 0)
-        {
-            bool isFinished = false;
-            for (int i = 1; i < 8; i++)
-            {
-                if (!isFinished)
-                {
-                    checkSpace = new Vector2(gridCoordinate.x, gridCoordinate.y - i);
-                    checkInfo = chessController.CheckPieceOnSquare(checkSpace);
-                    if (gridCoordinate.y - i < 0)//else space is not on board
-                    {
-                        isFinished = true;
-                    }
-                    else if (checkInfo == null) //if space is empty
-                    {
-                        possibleMoves.Add(checkSpace);
-                    }
-                    else if (checkInfo.isWhite == !isWhite) //else if space has an enemy
-                    {
-                        possibleMoves.Add(checkSpace);
-                        isFinished = true;
-                    }
-                    else if (checkInfo.isWhite == isWhite)//else space has a friendly
-                    {
-                        isFinished = true;
-                    }
-                }
-            }
-        }
-
-        //checking up line
-        if (gridCoordinate.y < 7)
-        {
-            bool isFinished = false;
-            for (int i = 1; i < 8; i++)
-            {
-                if (!isFinished)
-                {
-                    checkSpace = new Vector2(gridCoordinate.x, gridCoordinate.y + i);
-                    checkInfo = chessController.CheckPieceOnSquare(checkSpace);
-                    if (gridCoordinate.y + i > 7)//else space is not on board
-                    {
-                        isFinished = true;
-                    }
-                    else if (checkInfo == null) //if space is empty
-                    {
-                        possibleMoves.Add(checkSpace);
-                    }
-                    else if (checkInfo.isWhite == !isWhite) //else if space has an enemy
-                    {
-                        possibleMoves.Add(checkSpace);
-                        isFinished = true;
-                    }
-                    else if (checkInfo.isWhite == isWhite)//else space has a friendly
-                    {
-                        isFinished = true;
-                    }
-                }
-            }
-        }
-
-        //checking right line
-        if (gridCoordinate.x > 0)
-        {
-            bool isFinished = false;
-            for (int i = 1; i < 8; i++)
-            {
-                if (!isFinished)
-                {
-                    checkSpace = new Vector2(gridCoordinate.x - i, gridCoordinate.y);
-                    checkInfo = chessController.CheckPieceOnSquare(checkSpace);
-                    if (gridCoordinate.x - i < 0)//else space is not on board
-                    {
-                        isFinished = true;
-                    }
-                    else if (checkInfo == null) //if space is empty
-                    {
-                        possibleMoves.Add(checkSpace);
-                    }
-                    else if (checkInfo.isWhite == !isWhite) //else if space has an enemy
-                    {
-                        possibleMoves.Add(checkSpace);
-                        isFinished = true;
-                    }
-                    else if (checkInfo.isWhite == isWhite)//else space has a friendly
-                    {
-                        isFinished = true;
-                    }
-                }
-            }
-        }
-        //checking right line
-        if (gridCoordinate.x < 7)
-        {
-            bool isFinished = false;
-            for (int i = 1; i < 8; i++)
-            {
-                if (!isFinished)
-                {
-                    checkSpace = new Vector2(gridCoordinate.x + i, gridCoordinate.y);
-                    checkInfo = chessController.CheckPieceOnSquare(checkSpace);
-                    if (gridCoordinate.x + i > 7)//else space is not on board
-                    {
-                        isFinished = true;
-                    }
-                    else if (checkInfo == null) //if space is empty
-                    {
-                        possibleMoves.Add(checkSpace);
-                    }
-                    else if (checkInfo.isWhite == !isWhite) //else if space has an enemy
-                    {
-                        possibleMoves.Add(checkSpace);
-                        isFinished = true;
-                    }
-                    else if (checkInfo.isWhite == isWhite)//else space has a friendly
-                    {
-                        isFinished = true;
-                    }
-                }
-            }
-        }
-        return possibleMoves;
-    }
-
+    
     List<Vector2> BishopMoves(Vector2 position, bool isWhite)
     {
         List<Vector2> possibleMoves = new List<Vector2>();
@@ -292,13 +54,9 @@ public class ShowMoves : MonoBehaviour
                     checkSpace = new Vector2(gridCoordinate.x + i, gridCoordinate.y + i);
                     checkInfo = chessController.CheckPieceOnSquare(checkSpace);
                     if (gridCoordinate.x + i > 7 || gridCoordinate.y + i > 7 || (checkInfo != null && checkInfo.isWhite == isWhite))
-                    {
                         isFinished = true;
-                    }
                     else if (checkInfo == null)
-                    {
                         possibleMoves.Add(checkSpace);
-                    }
                     else if (checkInfo.isWhite == !isWhite)
                     {
                         possibleMoves.Add(checkSpace);
@@ -319,15 +77,11 @@ public class ShowMoves : MonoBehaviour
                     checkSpace = new Vector2(gridCoordinate.x - i, gridCoordinate.y + i);
                     checkInfo = chessController.CheckPieceOnSquare(checkSpace);
                     if (gridCoordinate.x - i < 0 || gridCoordinate.y + i > 7 || (checkInfo != null && checkInfo.isWhite == isWhite))
-                    {
                         isFinished = true;
-                    }
                     else if (checkInfo == null)
-                    {
                         possibleMoves.Add(checkSpace);
-                    }
                     else if (checkInfo.isWhite == !isWhite)
-                    {
+                    { 
                         possibleMoves.Add(checkSpace);
                         isFinished = true;
                     }
@@ -346,13 +100,9 @@ public class ShowMoves : MonoBehaviour
                     checkSpace = new Vector2(gridCoordinate.x + i, gridCoordinate.y - i);
                     checkInfo = chessController.CheckPieceOnSquare(checkSpace);
                     if (gridCoordinate.x + i > 7 || gridCoordinate.y - i < 0 || (checkInfo != null && checkInfo.isWhite == isWhite))
-                    {
                         isFinished = true;
-                    }
                     else if (checkInfo == null)
-                    {
                         possibleMoves.Add(checkSpace);
-                    }
                     else if (checkInfo.isWhite == !isWhite)
                     {
                         possibleMoves.Add(checkSpace);
@@ -373,13 +123,9 @@ public class ShowMoves : MonoBehaviour
                     checkSpace = new Vector2(gridCoordinate.x - i, gridCoordinate.y - i);
                     checkInfo = chessController.CheckPieceOnSquare(checkSpace);
                     if (gridCoordinate.x - i < 0 || gridCoordinate.y - i < 0 || (checkInfo != null && checkInfo.isWhite == isWhite))
-                    {
                         isFinished = true;
-                    }
                     else if (checkInfo == null)
-                    {
                         possibleMoves.Add(checkSpace);
-                    }
                     else if (checkInfo.isWhite == !isWhite)
                     {
                         possibleMoves.Add(checkSpace);
@@ -404,9 +150,7 @@ public class ShowMoves : MonoBehaviour
             checkSpace = new Vector2(gridCoordinate.x - 1, gridCoordinate.y + 2);
             checkInfo = chessController.CheckPieceOnSquare(checkSpace);
             if (checkInfo == null || checkInfo.isWhite == !isWhite)
-            {
                 possibleMoves.Add(checkSpace);
-            }
         }
 
         //checking UR
@@ -415,9 +159,7 @@ public class ShowMoves : MonoBehaviour
             checkSpace = new Vector2(gridCoordinate.x + 1, gridCoordinate.y + 2);
             checkInfo = chessController.CheckPieceOnSquare(checkSpace);
             if (checkInfo == null || checkInfo.isWhite == !isWhite)
-            {
                 possibleMoves.Add(checkSpace);
-            }
         }
 
         //checking UL
@@ -426,9 +168,7 @@ public class ShowMoves : MonoBehaviour
             checkSpace = new Vector2(gridCoordinate.x - 1, gridCoordinate.y + 2);
             checkInfo = chessController.CheckPieceOnSquare(checkSpace);
             if (checkInfo == null || checkInfo.isWhite == !isWhite)
-            {
                 possibleMoves.Add(checkSpace);
-            }
         }
 
         //checking RU
@@ -437,9 +177,7 @@ public class ShowMoves : MonoBehaviour
             checkSpace = new Vector2(gridCoordinate.x + 2, gridCoordinate.y + 1);
             checkInfo = chessController.CheckPieceOnSquare(checkSpace);
             if (checkInfo == null || checkInfo.isWhite == !isWhite)
-            {
                 possibleMoves.Add(checkSpace);
-            }
         }
 
         //checking RD
@@ -448,9 +186,7 @@ public class ShowMoves : MonoBehaviour
             checkSpace = new Vector2(gridCoordinate.x + 2, gridCoordinate.y - 1);
             checkInfo = chessController.CheckPieceOnSquare(checkSpace);
             if (checkInfo == null || checkInfo.isWhite == !isWhite)
-            {
                 possibleMoves.Add(checkSpace);
-            }
         }
 
         //checking RU
@@ -459,9 +195,7 @@ public class ShowMoves : MonoBehaviour
             checkSpace = new Vector2(gridCoordinate.x + 2, gridCoordinate.y + 1);
             checkInfo = chessController.CheckPieceOnSquare(checkSpace);
             if (checkInfo == null || checkInfo.isWhite == !isWhite)
-            {
                 possibleMoves.Add(checkSpace);
-            }
         }
 
         //checking DR
@@ -470,9 +204,7 @@ public class ShowMoves : MonoBehaviour
             checkSpace = new Vector2(gridCoordinate.x + 1, gridCoordinate.y - 2);
             checkInfo = chessController.CheckPieceOnSquare(checkSpace);
             if (checkInfo == null || checkInfo.isWhite == !isWhite)
-            {
                 possibleMoves.Add(checkSpace);
-            }
         }
 
         //checking DR
@@ -481,9 +213,7 @@ public class ShowMoves : MonoBehaviour
             checkSpace = new Vector2(gridCoordinate.x + 1, gridCoordinate.y - 2);
             checkInfo = chessController.CheckPieceOnSquare(checkSpace);
             if (checkInfo == null || checkInfo.isWhite == !isWhite)
-            {
                 possibleMoves.Add(checkSpace);
-            }
         }
 
         //checking DL
@@ -492,9 +222,7 @@ public class ShowMoves : MonoBehaviour
             checkSpace = new Vector2(gridCoordinate.x - 1, gridCoordinate.y - 2);
             checkInfo = chessController.CheckPieceOnSquare(checkSpace);
             if (checkInfo == null || checkInfo.isWhite == !isWhite)
-            {
                 possibleMoves.Add(checkSpace);
-            }
         }
 
         //checking LD
@@ -503,9 +231,7 @@ public class ShowMoves : MonoBehaviour
             checkSpace = new Vector2(gridCoordinate.x - 2, gridCoordinate.y - 1);
             checkInfo = chessController.CheckPieceOnSquare(checkSpace);
             if (checkInfo == null || checkInfo.isWhite == !isWhite)
-            {
                 possibleMoves.Add(checkSpace);
-            }
         }
 
         //checking RU
@@ -514,9 +240,7 @@ public class ShowMoves : MonoBehaviour
             checkSpace = new Vector2(gridCoordinate.x - 2, gridCoordinate.y + 1);
             checkInfo = chessController.CheckPieceOnSquare(checkSpace);
             if (checkInfo == null || checkInfo.isWhite == !isWhite)
-            {
                 possibleMoves.Add(checkSpace);
-            }
         }
 
         return possibleMoves;
@@ -540,22 +264,16 @@ public class ShowMoves : MonoBehaviour
                     checkSpace = new Vector2(gridCoordinate.x, gridCoordinate.y - i);
                     checkInfo = chessController.CheckPieceOnSquare(checkSpace);
                     if (gridCoordinate.y - i < 0)//else space is not on board
-                    {
                         isFinished = true;
-                    }
                     else if (checkInfo == null) //if space is empty
-                    {
                         possibleMoves.Add(checkSpace);
-                    }
                     else if (checkInfo.isWhite == !isWhite) //else if space has an enemy
                     {
                         possibleMoves.Add(checkSpace);
                         isFinished = true;
                     }
                     else if (checkInfo.isWhite == isWhite)//else space has a friendly
-                    {
                         isFinished = true;
-                    }
                 }
             }
         }
@@ -571,22 +289,16 @@ public class ShowMoves : MonoBehaviour
                     checkSpace = new Vector2(gridCoordinate.x, gridCoordinate.y + i);
                     checkInfo = chessController.CheckPieceOnSquare(checkSpace);
                     if (gridCoordinate.y + i > 7)//else space is not on board
-                    {
                         isFinished = true;
-                    }
                     else if (checkInfo == null) //if space is empty
-                    {
                         possibleMoves.Add(checkSpace);
-                    }
                     else if (checkInfo.isWhite == !isWhite) //else if space has an enemy
                     {
                         possibleMoves.Add(checkSpace);
                         isFinished = true;
                     }
                     else if (checkInfo.isWhite == isWhite)//else space has a friendly
-                    {
                         isFinished = true;
-                    }
                 }
             }
         }
@@ -602,22 +314,16 @@ public class ShowMoves : MonoBehaviour
                     checkSpace = new Vector2(gridCoordinate.x - i, gridCoordinate.y);
                     checkInfo = chessController.CheckPieceOnSquare(checkSpace);
                     if (gridCoordinate.x - i < 0)//else space is not on board
-                    {
                         isFinished = true;
-                    }
                     else if (checkInfo == null) //if space is empty
-                    {
                         possibleMoves.Add(checkSpace);
-                    }
                     else if (checkInfo.isWhite == !isWhite) //else if space has an enemy
                     {
                         possibleMoves.Add(checkSpace);
                         isFinished = true;
                     }
                     else if (checkInfo.isWhite == isWhite)//else space has a friendly
-                    {
                         isFinished = true;
-                    }
                 }
             }
         }
@@ -631,23 +337,18 @@ public class ShowMoves : MonoBehaviour
                 {
                     checkSpace = new Vector2(gridCoordinate.x + i, gridCoordinate.y);
                     checkInfo = chessController.CheckPieceOnSquare(checkSpace);
+
                     if (gridCoordinate.x + i > 7)//else space is not on board
-                    {
                         isFinished = true;
-                    }
                     else if (checkInfo == null) //if space is empty
-                    {
                         possibleMoves.Add(checkSpace);
-                    }
                     else if (checkInfo.isWhite == !isWhite) //else if space has an enemy
                     {
                         possibleMoves.Add(checkSpace);
                         isFinished = true;
                     }
                     else if (checkInfo.isWhite == isWhite)//else space has a friendly
-                    {
                         isFinished = true;
-                    }
                 }
             }
         }
@@ -667,11 +368,8 @@ public class ShowMoves : MonoBehaviour
             if (gridCoordinate.y + 1 < 8) // checking if space is on the board
             {
                 checkSpace = new Vector2(gridCoordinate.x, gridCoordinate.y + 1); //checking space directly infront
-                checkInfo = chessController.CheckPieceOnSquare(checkSpace); //getting info on piece (if piece is there) on square
-                if (checkInfo == null) //if piece doesn't exist
-                {
-                    possibleMoves.Add(checkSpace); //add coordinate for button
-                }
+                if (chessController.CheckPieceOnSquare(checkSpace) == null)
+                    possibleMoves.Add(checkSpace);
             }
 
             //check if first move
@@ -680,11 +378,8 @@ public class ShowMoves : MonoBehaviour
                 if (possibleMoves.Count > 0)//if piece can't move in front then it wont be able to move two in front
                 {
                     checkSpace = new Vector2(gridCoordinate.x, gridCoordinate.y + 2); //checking space two infront
-                    checkInfo = chessController.CheckPieceOnSquare(checkSpace); //getting info on piece (if piece is there) on square
-                    if (checkInfo == null) //if piece doesn't exist
-                    {
+                    if (chessController.CheckPieceOnSquare(checkSpace) == null) //if piece doesn't exist
                         possibleMoves.Add(checkSpace); //add coordinate for button
-                    }
                 }
             }
 
@@ -696,9 +391,7 @@ public class ShowMoves : MonoBehaviour
                 if (checkInfo != null && checkInfo.isWhite == !isWhite) //checking if piece exists AND is piece is opposite colour
                 {
                     if (!checkInfo.isKing)//checking if piece is not a king
-                    {
                         possibleMoves.Add(checkSpace);
-                    }
                 }
             }
             //check diagonal right
@@ -709,9 +402,7 @@ public class ShowMoves : MonoBehaviour
                 if (checkInfo != null && checkInfo.isWhite == !isWhite) //checking if piece exists AND is piece is opposite colour
                 {
                     if (!checkInfo.isKing)//checking if piece is not a king
-                    {
                         possibleMoves.Add(checkSpace);
-                    }
                 }
             }
         }
@@ -722,9 +413,7 @@ public class ShowMoves : MonoBehaviour
                 checkSpace = new Vector2(gridCoordinate.x, gridCoordinate.y - 1); //checking space directly infront
                 checkInfo = chessController.CheckPieceOnSquare(checkSpace); //getting info on piece (if piece is there) on square
                 if (checkInfo == null) //if piece doesn't exist
-                {
                     possibleMoves.Add(checkSpace); //add coordinate for button
-                }
             }
             //check if first move
             if (firstMove && gridCoordinate.y - 2 >= 0) //if first move can move two spaces
@@ -734,9 +423,7 @@ public class ShowMoves : MonoBehaviour
                     checkSpace = new Vector2(gridCoordinate.x, gridCoordinate.y - 2); //checking space two infront
                     checkInfo = chessController.CheckPieceOnSquare(checkSpace); //getting info on piece (if piece is there) on square
                     if (checkInfo == null) //if piece doesn't exist
-                    {
                         possibleMoves.Add(checkSpace); //add coordinate for button
-                    }
                 }
             }
             //check diagonal left
@@ -747,9 +434,7 @@ public class ShowMoves : MonoBehaviour
                 if (checkInfo != null && checkInfo.isWhite == !isWhite) //checking if piece exists AND is piece is opposite colour
                 {
                     if (!checkInfo.isKing)//checking if piece is not a king
-                    {
                         possibleMoves.Add(checkSpace);
-                    }
                 }
             }
             //check diagonal right
@@ -760,9 +445,7 @@ public class ShowMoves : MonoBehaviour
                 if (checkInfo != null && checkInfo.isWhite == !isWhite) //checking if piece exists AND is piece is opposite colour
                 {
                     if (!checkInfo.isKing)//checking if piece is not a king
-                    {
                         possibleMoves.Add(checkSpace);
-                    }
                 }
             }
         }
