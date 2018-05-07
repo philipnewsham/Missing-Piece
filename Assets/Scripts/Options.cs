@@ -90,7 +90,7 @@ public class Options : MonoBehaviour
 
     void ChangeTurnLimit(int turn)
     {
-        turnLimit = Mathf.Clamp(turnLimit + turn,0,int.MaxValue);
+        turnLimit = Mathf.Clamp(turnLimit + (turn*2),0,int.MaxValue);
         turnLimitText.text = turnLimit <= 0? "\u221E":turnLimit.ToString();
         chessController.ChangeTurnAmount(turnLimit);
         UpdateRuleText();

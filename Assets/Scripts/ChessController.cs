@@ -191,7 +191,7 @@ public class ChessController : MonoBehaviour
 
     public void ChangeTurnAmount(int turns)
     {
-        turnAmount = turns*2;
+        turnAmount = turns;
     }
 
     public void ChangePointAmount(int points)
