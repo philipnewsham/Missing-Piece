@@ -4820,7 +4820,6 @@ MonoBehaviour:
     type: 2}
   pieceParent: {fileID: 646560117}
   editedScores: 0
-  pieceScores: 0100000005000000030000000300000009000000
   pieceSprites:
   - {fileID: 21300002, guid: 04ab46b2eaf651249bcbe601751238f8, type: 3}
   - {fileID: 21300004, guid: 04ab46b2eaf651249bcbe601751238f8, type: 3}
@@ -7480,7 +7479,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 052e8925b88ff734e8e46812e6683e47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  piece: 1
+  piece: 3
   pointText: {fileID: 1970865139}
   arrowButtons:
   - {fileID: 172037482}
@@ -7777,7 +7776,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 052e8925b88ff734e8e46812e6683e47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  piece: 3
+  piece: 1
   pointText: {fileID: 2056605959}
   arrowButtons:
   - {fileID: 1802475746}
@@ -8846,7 +8845,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 052e8925b88ff734e8e46812e6683e47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  piece: 0
+  piece: 4
   pointText: {fileID: 1890951239}
   arrowButtons:
   - {fileID: 824745657}
@@ -11761,7 +11760,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 052e8925b88ff734e8e46812e6683e47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  piece: 4
+  piece: 0
   pointText: {fileID: 328929879}
   arrowButtons:
   - {fileID: 1000492789}
