@@ -87,7 +87,28 @@ public class PieceController : MonoBehaviour
         gridCoordinate = moveCoordinate; //updates grid coordinate
         thisInformation.gridCoordinate = moveCoordinate; //updates piece information grid coordinate
         firstMove = false;
+
+        if (CheckPawnUpgrade())
+            UpgradeToQueen();
+
         chessController.EnablePieces();
         audioSource.Play();
+    }
+
+    bool CheckPawnUpgrade()
+    {
+        if (piece != PieceTitle.Piece.PAWN)
+            return false;
+
+        if (isWhite)
+            return (gridCoordinate.y == 7);
+        else
+            return (gridCoordinate.y == 0);
+    }
+
+    void UpgradeToQueen()
+    {
+        piece = PieceTitle.Piece.QUEEN;
+        GetComponent<Image>().sprite = FindObjectOfType<ChessBoardSetUp>().pieceSprites[(int)piece + (System.Enum.GetValues(typeof(PieceTitle.Piece)).Length * (isWhite ? 0 : 1))];
     }
 }
