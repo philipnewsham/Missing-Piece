@@ -7,11 +7,11 @@ public class ChangePointValue : MonoBehaviour
 {
     public enum PIECE
     {
-        PAWN,
-        ROOK,
-        KNIGHT,
+        QUEEN,
         BISHOP,
-        QUEEN
+        KNIGHT,
+        ROOK,
+        PAWN
     }
 
     public PIECE piece;
@@ -21,7 +21,7 @@ public class ChangePointValue : MonoBehaviour
 
     void Start()
     {
-        pointValue = FindObjectOfType<ChessBoardSetUp>().pieceScores[(int)piece];
+        pointValue = FindObjectOfType<ChessBoardSetUp>().ReturnPieceValue((int)piece);
         pointText.text = pointValue.ToString();
         arrowButtons[0].onClick.AddListener(() => ChangePoint(1));
         arrowButtons[1].onClick.AddListener(() => ChangePoint(-1));
@@ -29,10 +29,10 @@ public class ChangePointValue : MonoBehaviour
 
     void ChangePoint(int amount)
     {
-        pointValue = (pointValue + amount)%10;
+        pointValue = (pointValue + amount) % 10;
         pointValue = pointValue >= 0 ? pointValue : 9;
         
-        FindObjectOfType<ChessBoardSetUp>().pieceScores[(int)piece] = pointValue;
+        FindObjectOfType<ChessBoardSetUp>().SetPieceValue((int)piece, pointValue);
         pointText.text = pointValue.ToString();
     }
 }

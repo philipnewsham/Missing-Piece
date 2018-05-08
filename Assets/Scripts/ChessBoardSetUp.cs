@@ -14,7 +14,7 @@ public class ChessBoardSetUp : MonoBehaviour
     public bool editedScores;
 
     [HideInInspector]
-    public int[] pieceScores = new int[5] { 1, 5, 3, 3, 9 }; //pawn, rook, knight, bishop, queen
+    private int[] pieceScores = new int[5] { 9, 3, 3, 5, 1 }; //queen, bishop, knight, rook, pawn
 
     private int[] gameScores;
     ChessController chessController;
@@ -35,6 +35,7 @@ public class ChessBoardSetUp : MonoBehaviour
             gameScores = new int[5];
             gameScores = pieceScores;
         }
+
         bool isWhite = true;
         CreatePiece(new Vector2(0, 0), isWhite, PieceTitle.Piece.ROOK);
         CreatePiece(new Vector2(1, 0), isWhite, PieceTitle.Piece.KNIGHT);
@@ -70,7 +71,7 @@ public class ChessBoardSetUp : MonoBehaviour
         piece.GetComponent<PieceController>().gridCoordinate = new Vector2(pos.x, pos.y);
         piece.GetComponent<PieceController>().isWhite = isWhite;
         piece.GetComponent<PieceController>().piece = pieceType;
-        piece.GetComponent<PieceInformation>().score = gameScores[0];
+        piece.GetComponent<PieceInformation>().score = gameScores[(int)pieceType];
         piece.GetComponent<Image>().sprite = pieceSprites[(int)pieceType + (System.Enum.GetValues(typeof(PieceTitle.Piece)).Length * (isWhite?0:1))];
     }
 
@@ -78,5 +79,15 @@ public class ChessBoardSetUp : MonoBehaviour
     {
         yield return new WaitForSeconds(0.2f);
         chessController.AddToPieceInfo();
+    }
+
+    public int ReturnPieceValue(int piece)
+    {
+        return pieceScores[piece];
+    }
+
+    public void SetPieceValue(int piece, int value)
+    {
+        pieceScores[piece] = value;
     }
 }
