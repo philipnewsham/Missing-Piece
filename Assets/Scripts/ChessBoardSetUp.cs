@@ -71,7 +71,7 @@ public class ChessBoardSetUp : MonoBehaviour
         piece.GetComponent<PieceController>().gridCoordinate = new Vector2(pos.x, pos.y);
         piece.GetComponent<PieceController>().isWhite = isWhite;
         piece.GetComponent<PieceController>().piece = pieceType;
-        piece.GetComponent<PieceInformation>().score = gameScores[(int)pieceType];
+        piece.GetComponent<PieceController>().score = gameScores[(int)pieceType];
         piece.GetComponent<Image>().sprite = pieceSprites[(int)pieceType + (System.Enum.GetValues(typeof(PieceTitle.Piece)).Length * (isWhite?0:1))];
     }
 

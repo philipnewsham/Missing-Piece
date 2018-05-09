@@ -17,7 +17,7 @@ public class PieceTitle
 
 public class ChessController : MonoBehaviour
 {
-    private PieceInformation[] pieceInformations;
+    private PieceController[] pieceInformations;
     public float gridSize;
     public Vector2 gridOrigin;
 
@@ -50,8 +50,8 @@ public class ChessController : MonoBehaviour
 
     public void AddToPieceInfo()
     {
-        pieceInformations = FindObjectsOfType<PieceInformation>();
-        foreach(PieceInformation info in pieceInformations)
+        pieceInformations = FindObjectsOfType<PieceController>();
+        foreach(PieceController info in pieceInformations)
         {
             if (info.isWhite)
                 whitePieces.Add(info.gameObject.GetComponent<Button>());
@@ -61,14 +61,14 @@ public class ChessController : MonoBehaviour
         EnablePieces();
     }
 
-    public PieceInformation CheckPieceOnSquare(Vector2 space)
+    public PieceController CheckPieceOnSquare(Vector2 space)
     {
-        return ReturnPieceInformation(space);
+        return ReturnPieceController(space);
     }
 
     public void TakePiece(Vector2 space)
     {
-        PieceInformation pieceInfo = ReturnPieceInformation(space);
+        PieceController pieceInfo = ReturnPieceController(space);
 
         if (pieceInfo != null)
         {
@@ -80,10 +80,10 @@ public class ChessController : MonoBehaviour
         }
     }
 
-    PieceInformation ReturnPieceInformation(Vector2 position)
+    PieceController ReturnPieceController(Vector2 position)
     {
-        PieceInformation pieceInfo = null;
-        foreach (PieceInformation info in pieceInformations)
+        PieceController pieceInfo = null;
+        foreach (PieceController info in pieceInformations)
         {
             if (info != null && info.gridCoordinate == position)
                 pieceInfo = info;
@@ -95,7 +95,7 @@ public class ChessController : MonoBehaviour
     {
         int whitePieceCount = 0;
         int blackPieceCount = 0;
-        foreach (PieceInformation info in pieceInformations)
+        foreach (PieceController info in pieceInformations)
         {
             if (info != null)
             { 
@@ -218,7 +218,7 @@ public class ChessController : MonoBehaviour
 
     public void ClearAllPieces()
     {
-        foreach (PieceInformation info in pieceInformations)
+        foreach (PieceController info in pieceInformations)
         {
             if (info != null)
                 Destroy(info.gameObject);

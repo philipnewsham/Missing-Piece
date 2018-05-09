@@ -9,7 +9,7 @@ public class BlackPawn : MonoBehaviour
     private RectTransform rectTransform;
     private bool firstMove = true;
     private ChessController chessController;
-    private PieceInformation thisInformation;
+    private PieceController thisInformation;
     private bool showMoves = false;
     private List<GameObject> moveButtons = new List<GameObject>();
     public GameObject moveButton;
@@ -28,7 +28,7 @@ public class BlackPawn : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         rectTransform = GetComponent<RectTransform>();
         GetComponent<Button>().onClick.AddListener(() => { ShowMoves(); audioSource.Play(); });
-        thisInformation = GetComponent<PieceInformation>();
+        thisInformation = GetComponent<PieceController>();
         thisInformation.gridCoordinate = gridCoordinate;
         thisInformation.isWhite = false;
         thisInformation.isKing = false;
@@ -41,7 +41,7 @@ public class BlackPawn : MonoBehaviour
         {
             List<Vector2> possibleMoves = new List<Vector2>();
             Vector2 checkSpace = new Vector2();
-            PieceInformation checkInfo = null;
+            PieceController checkInfo = null;
             //check space in front is empty
             if (gridCoordinate.y - 1 >= 0) // checking if space is on the board
             {

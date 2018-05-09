@@ -11,7 +11,6 @@ public class PieceController : MonoBehaviour
     public Vector2 gridCoordinate;
     private RectTransform rectTransform;
     private ChessController chessController;
-    private PieceInformation thisInformation;
     private bool showMoves = false;
     private List<GameObject> moveButtons = new List<GameObject>();
     public GameObject moveButton;
@@ -21,6 +20,8 @@ public class PieceController : MonoBehaviour
     private GameObject dismissButtonClone;
     public bool isWhite;
     public bool firstMove = true;
+    public int score;
+    public bool isKing;
 
     private AudioSource audioSource;
 
@@ -35,10 +36,6 @@ public class PieceController : MonoBehaviour
         rectTransform = GetComponent<RectTransform>();
         audioSource = GetComponent<AudioSource>();
         GetComponent<Button>().onClick.AddListener(() => { ShowMoves(); audioSource.Play(); });
-        thisInformation = GetComponent<PieceInformation>();
-        thisInformation.gridCoordinate = gridCoordinate;
-        thisInformation.isWhite = isWhite;
-        thisInformation.isKing = false;
     }
 
     void ShowMoves()
@@ -85,7 +82,6 @@ public class PieceController : MonoBehaviour
         rectTransform.localPosition = movePos; //moves piece
         chessController.TakePiece(moveCoordinate); //asks controller to remove any piece landed on
         gridCoordinate = moveCoordinate; //updates grid coordinate
-        thisInformation.gridCoordinate = moveCoordinate; //updates piece information grid coordinate
         firstMove = false;
 
         if (CheckPawnUpgrade())
