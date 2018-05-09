@@ -56,13 +56,15 @@ public class Options : MonoBehaviour
 
         pointLimitText.text = infinity;
         turnLimitText.text = infinity;
-        UpdateRuleText();
-        CheckInteractive();
+
+        ToggleWinCondition();
     }
 
     void CheckInteractive()
     {
         beginButton.interactable = !(goalBools[0] && pointLimit + turnLimit == 0);
+        if (goalBools[1])
+            beginButton.interactable = true;
     }
 
     void BeginGame()
@@ -74,6 +76,7 @@ public class Options : MonoBehaviour
     void ChangeCapturePiece(int piece)
     {
         currentPiece = (currentPiece + piece >= 0) ? ((currentPiece + piece) % capturePiece.Count) : (capturePiece.Count - 1);
+        chessController.capturePiece = (PieceTitle.Piece)currentPiece;
         choosePieceText.text = capturePiece[currentPiece];
         choosePieceIcon.sprite = pieceSprites[currentPiece];
         UpdateRuleText();
@@ -103,8 +106,9 @@ public class Options : MonoBehaviour
         {
             goalBools[i] = winConditionToggles[i].isOn;
             parentPanels[i].SetActive(winConditionToggles[i].isOn);
+            chessController.goalCapture = goalBools[1];
         }
-
+        CheckInteractive();
         UpdateRuleText();
     }
 
@@ -119,9 +123,7 @@ public class Options : MonoBehaviour
                 rule = "Highest points in unlimited turns, select either a point limit or turn limit to play.";
         }
         if (goalBools[1])
-        {
             rule += string.Format("First to capture the opponent's {0}.", capturePiece[currentPiece]);
-        }
 
         inGameRules.text = string.Format("Rules: {0}", rule);
         ruleText.text = rule;
