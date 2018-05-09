@@ -40,13 +40,14 @@ public class ChessController : MonoBehaviour
     private int moves;
 
     public bool goalCapture;
-    private int capturePiece;
 
     private int turnAmount;
     private int currentTurn = -1;
     public Text currentTurnText;
 
     public Text playerTurnText;
+
+    public PieceTitle.Piece capturePiece;
 
     public void AddToPieceInfo()
     {
@@ -74,6 +75,15 @@ public class ChessController : MonoBehaviour
         {
             if (pieceInfo.isWhite) blackScore += pieceInfo.score;
             else whiteScore += pieceInfo.score;
+
+            if(goalCapture && pieceInfo.piece == capturePiece)
+            {
+                if (pieceInfo.isWhite)
+                    BlackWins();
+                else
+                    WhiteWins();
+            }
+
             Destroy(pieceInfo.gameObject);
             UpdateScores();
             CheckPiecesRemaining();
