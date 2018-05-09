@@ -32,13 +32,7 @@ public class ChessController : MonoBehaviour
 
     public bool goalScore;
     private int score;
-
-    public bool goalHighestTime;
-    private int minutes;
-
-    public bool goalHightestMove;
-    private int moves;
-
+    
     public bool goalCapture;
 
     private int turnAmount;
@@ -190,14 +184,7 @@ public class ChessController : MonoBehaviour
                 BlackWins();
             else
                 TieGame();
-
-            GameFinished();
         }
-    }
-
-    void GameFinished()
-    {
-        Debug.Log("game ends");
     }
 
     public void ChangeTurnAmount(int turns)
