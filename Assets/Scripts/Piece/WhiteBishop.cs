@@ -8,7 +8,7 @@ public class WhiteBishop : MonoBehaviour
     public Vector2 gridCoordinate;
     private RectTransform rectTransform;
     private ChessController chessController;
-    private PieceInformation thisInformation;
+    private PieceController thisInformation;
     private bool showMoves = false;
     private List<GameObject> moveButtons = new List<GameObject>();
     public GameObject moveButton;
@@ -25,7 +25,7 @@ public class WhiteBishop : MonoBehaviour
         gridOrigin = chessController.gridOrigin;
         rectTransform = GetComponent<RectTransform>();
         GetComponent<Button>().onClick.AddListener(() => ShowMoves());
-        thisInformation = GetComponent<PieceInformation>();
+        thisInformation = GetComponent<PieceController>();
         thisInformation.gridCoordinate = gridCoordinate;
         thisInformation.isWhite = isWhite;
         thisInformation.isKing = false;
@@ -38,7 +38,7 @@ public class WhiteBishop : MonoBehaviour
         {
             List<Vector2> possibleMoves = new List<Vector2>();
             Vector2 checkSpace = new Vector2();
-            PieceInformation checkInfo = null;
+            PieceController checkInfo = null;
 
             //checking diagonal UR
             if(gridCoordinate.x < 7 && gridCoordinate.y < 7)

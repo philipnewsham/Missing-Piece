@@ -40,7 +40,7 @@ public class ShowMoves : MonoBehaviour
     {
         List<Vector2> possibleMoves = new List<Vector2>();
         Vector2 checkSpace = new Vector2();
-        PieceInformation checkInfo = null;
+        PieceController checkInfo = null;
         Vector2 gridCoordinate = position;
 
         //checking diagonal UR
@@ -141,7 +141,7 @@ public class ShowMoves : MonoBehaviour
     {
         List<Vector2> possibleMoves = new List<Vector2>();
         Vector2 checkSpace = new Vector2();
-        PieceInformation checkInfo = null;
+        PieceController checkInfo = null;
         Vector2 gridCoordinate = position;
 
         //checking UL
@@ -251,7 +251,7 @@ public class ShowMoves : MonoBehaviour
         Vector2 gridCoordinate = position;
         List<Vector2> possibleMoves = new List<Vector2>();
         Vector2 checkSpace = new Vector2();
-        PieceInformation checkInfo = null;
+        PieceController checkInfo = null;
 
         //checking down line
         if (gridCoordinate.y > 0)
@@ -360,7 +360,7 @@ public class ShowMoves : MonoBehaviour
         Vector2 gridCoordinate = position;
         List<Vector2> possibleMoves = new List<Vector2>();
         Vector2 checkSpace = new Vector2();
-        PieceInformation checkInfo = null;
+        PieceController checkInfo = null;
 
         if (isWhite)
         {
