@@ -59,6 +59,7 @@ public class ChessController : MonoBehaviour
             else
                 blackPieces.Add(info.gameObject.GetComponent<Button>());
         }
+        isWhite = false;
         EnablePieces();
     }
 
@@ -146,24 +147,18 @@ public class ChessController : MonoBehaviour
     {
         victoryScreen.SetActive(true);
         victoryText.text = "Black Wins!";
-        //victoryText.color = Color.black;
-        Debug.Log("black wins");
     }
 
     void WhiteWins()
     {
         victoryScreen.SetActive(true);
         victoryText.text = "White Wins!";
-        //victoryText.color = Color.white;
-        Debug.Log("white wins");
     }
 
     void TieGame()
     {
         victoryScreen.SetActive(true);
         victoryText.text = "It's a tie!";
-        //victoryText.color = Color.grey;
-        Debug.Log("It's a tie!");
     }
 
     bool isWhite;
@@ -218,12 +213,13 @@ public class ChessController : MonoBehaviour
     public void Reset()
     {
         ClearAllPieces();
-        currentTurn = -2;
+        currentTurn = -1;
         whiteScore = 0;
         blackScore = 0;
         pieceInformations = null;
         UpdateScores();
         currentTurnText.text = "Turn: 0";
+        isWhite = false;
     }
 
     public void ClearAllPieces()
