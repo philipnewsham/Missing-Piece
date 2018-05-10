@@ -63,13 +63,16 @@ public class PieceController : MonoBehaviour
                     button.onClick.AddListener(() => MovePiece(moveTo));
                 }
             }
+            else
+            {
+                ShowMoves();
+            }
         }
         else
         {
             for (int i = 0; i < moveButtons.Count; i++)
-            {
                 Destroy(moveButtons[i]);
-            }
+
             moveButtons.Clear();
             Destroy(dismissButtonClone);
         }
