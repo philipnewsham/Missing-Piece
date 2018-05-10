@@ -80,8 +80,12 @@ public class PieceController : MonoBehaviour
         ShowMoves();//this hides the move buttons
         Vector2 movePos = new Vector2((moveCoordinate.x * gridSize) + gridOrigin.x, (moveCoordinate.y * gridSize) + gridOrigin.y); //selects move pos
         rectTransform.localPosition = movePos; //moves piece
-        chessController.TakePiece(moveCoordinate); //asks controller to remove any piece landed on
+        chessController.TakePiece(moveCoordinate, piece); //asks controller to remove any piece landed on
         gridCoordinate = moveCoordinate; //updates grid coordinate
+
+        if (CheckMovedTwoSquares())
+            chessController.AddEnPassant(this);
+
         firstMove = false;
 
         if (CheckPawnUpgrade())
@@ -89,6 +93,19 @@ public class PieceController : MonoBehaviour
 
         chessController.EnablePieces();
         audioSource.Play();
+    }
+
+    bool CheckMovedTwoSquares()
+    {
+        if (!firstMove || piece != PieceTitle.Piece.PAWN)
+            return false;
+
+        if (isWhite && gridCoordinate.y == 3)
+            return true;
+        else if (!isWhite && gridCoordinate.y == 4)
+            return true;
+        else
+            return false;
     }
 
     bool CheckPawnUpgrade()

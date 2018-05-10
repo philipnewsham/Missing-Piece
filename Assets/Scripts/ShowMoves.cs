@@ -388,6 +388,10 @@ public class ShowMoves : MonoBehaviour
             {
                 checkSpace = new Vector2(gridCoordinate.x - 1, gridCoordinate.y + 1); //checking space up and to the left
                 checkInfo = chessController.CheckPieceOnSquare(checkSpace);
+                //if there's no piece on the space, check if it's a en passant move
+                if(checkInfo == null)
+                    checkInfo = chessController.CheckEnPassant(checkSpace);
+
                 if (checkInfo != null && checkInfo.isWhite == !isWhite) //checking if piece exists AND is piece is opposite colour
                 {
                     if (!checkInfo.isKing)//checking if piece is not a king
@@ -399,6 +403,11 @@ public class ShowMoves : MonoBehaviour
             {
                 checkSpace = new Vector2(gridCoordinate.x + 1, gridCoordinate.y + 1); //checking space up and to the right
                 checkInfo = chessController.CheckPieceOnSquare(checkSpace);
+
+                //if there's no piece on the space, check if it's a en passant move
+                if (checkInfo == null)
+                    checkInfo = chessController.CheckEnPassant(checkSpace);
+
                 if (checkInfo != null && checkInfo.isWhite == !isWhite) //checking if piece exists AND is piece is opposite colour
                 {
                     if (!checkInfo.isKing)//checking if piece is not a king
@@ -431,6 +440,11 @@ public class ShowMoves : MonoBehaviour
             {
                 checkSpace = new Vector2(gridCoordinate.x - 1, gridCoordinate.y - 1); //checking space up and to the left
                 checkInfo = chessController.CheckPieceOnSquare(checkSpace);
+
+                //if there's no piece on the space, check if it's a en passant move
+                if (checkInfo == null)
+                    checkInfo = chessController.CheckEnPassant(checkSpace);
+
                 if (checkInfo != null && checkInfo.isWhite == !isWhite) //checking if piece exists AND is piece is opposite colour
                 {
                     if (!checkInfo.isKing)//checking if piece is not a king
@@ -442,6 +456,11 @@ public class ShowMoves : MonoBehaviour
             {
                 checkSpace = new Vector2(gridCoordinate.x + 1, gridCoordinate.y - 1); //checking space up and to the right
                 checkInfo = chessController.CheckPieceOnSquare(checkSpace);
+
+                //if there's no piece on the space, check if it's a en passant move
+                if (checkInfo == null)
+                    checkInfo = chessController.CheckEnPassant(checkSpace);
+
                 if (checkInfo != null && checkInfo.isWhite == !isWhite) //checking if piece exists AND is piece is opposite colour
                 {
                     if (!checkInfo.isKing)//checking if piece is not a king

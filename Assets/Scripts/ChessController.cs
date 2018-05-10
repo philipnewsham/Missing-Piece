@@ -18,6 +18,7 @@ public class PieceTitle
 public class ChessController : MonoBehaviour
 {
     private PieceController[] pieceInformations;
+    private List<PieceController> enPassantMoves = new List<PieceController>();
     public float gridSize;
     public Vector2 gridOrigin;
 
@@ -62,9 +63,11 @@ public class ChessController : MonoBehaviour
         return ReturnPieceController(space);
     }
 
-    public void TakePiece(Vector2 space)
+    public void TakePiece(Vector2 space, PieceTitle.Piece piece)
     {
         PieceController pieceInfo = ReturnPieceController(space);
+        if (pieceInfo == null && piece == PieceTitle.Piece.PAWN)
+            pieceInfo = CheckEnPassant(space);
 
         if (pieceInfo != null)
         {
@@ -83,6 +86,23 @@ public class ChessController : MonoBehaviour
             UpdateScores();
             CheckPiecesRemaining();
         }
+    }
+
+    public PieceController CheckEnPassant(Vector2 position)
+    {
+        PieceController pieceInfo = null;
+        Debug.LogFormat("check position: {0}", position);
+        if(enPassantMoves.Count > 0)
+        {
+            foreach (PieceController info in enPassantMoves)
+            {
+                Vector2 pos = new Vector2(info.gridCoordinate.x, info.gridCoordinate.y + (info.isWhite ? -1 : 1));
+                Debug.LogFormat("check pos: {0}", pos);
+                if (pos == position)
+                    pieceInfo = info;
+            }
+        }
+        return pieceInfo;
     }
 
     PieceController ReturnPieceController(Vector2 position)
@@ -174,6 +194,7 @@ public class ChessController : MonoBehaviour
                 blackPieces[i].interactable = !isWhite;
         }
         currentTurn++;
+        RemoveEnPassantMoves();
         if(currentTurn == turnAmount && turnAmount > 0)
         {
             currentTurnText.text = "";
@@ -184,6 +205,22 @@ public class ChessController : MonoBehaviour
                 BlackWins();
             else
                 TieGame();
+        }
+    }
+
+    void RemoveEnPassantMoves()
+    {
+        List<PieceController> removePieces = new List<PieceController>();
+        foreach(PieceController pieceInfo in enPassantMoves)
+        {
+            if (pieceInfo.isWhite == isWhite)
+                removePieces.Add(pieceInfo);
+        }
+
+        if (removePieces.Count > 0)
+        {
+            for (int i = 0; i < removePieces.Count; i++)
+                enPassantMoves.Remove(removePieces[i]);
         }
     }
 
@@ -216,5 +253,10 @@ public class ChessController : MonoBehaviour
             if (info != null)
                 Destroy(info.gameObject);
         }
+    }
+
+    public void AddEnPassant(PieceController pieceController)
+    {
+        enPassantMoves.Add(pieceController);
     }
 }
