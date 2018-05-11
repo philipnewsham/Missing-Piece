@@ -31,8 +31,8 @@ public class PieceController : MonoBehaviour
     {
         chessController = FindObjectOfType<ChessController>();
         showMoveScript = FindObjectOfType<ShowMoves>();
-        gridSize = chessController.gridSize;
-        gridOrigin = chessController.gridOrigin;
+        gridSize = chessController.ReturnGridSize();
+        gridOrigin = chessController.ReturnOrigin();
         rectTransform = GetComponent<RectTransform>();
         audioSource = GetComponent<AudioSource>();
         GetComponent<Button>().onClick.AddListener(() => { ShowMoves(); audioSource.Play(); });
@@ -55,6 +55,7 @@ public class PieceController : MonoBehaviour
                 {
                     GameObject buttonClone = Instantiate(moveButton, transform.parent);
                     RectTransform rect = buttonClone.GetComponent<RectTransform>();
+                    rect.sizeDelta = Vector2.one * (gridSize * 0.9f);
                     Vector2 move = new Vector2((possibleMoves[i].x * gridSize) + gridOrigin.x, (possibleMoves[i].y * gridSize) + gridOrigin.y);
                     rect.localPosition = move;
                     moveButtons.Add(buttonClone);

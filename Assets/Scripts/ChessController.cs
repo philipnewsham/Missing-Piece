@@ -19,8 +19,9 @@ public class ChessController : MonoBehaviour
 {
     private PieceController[] pieceInformations;
     private List<PieceController> enPassantMoves = new List<PieceController>();
-    public float gridSize;
-    public Vector2 gridOrigin;
+    public GridLayoutGroup chessBoardLayout;
+    private float gridSize;
+    private Vector2 gridOrigin;
 
     private List<Button> whitePieces = new List<Button>();
     private List<Button> blackPieces = new List<Button>();
@@ -43,6 +44,13 @@ public class ChessController : MonoBehaviour
     public Text playerTurnText;
 
     public PieceTitle.Piece capturePiece;
+
+    public ShowCapturedPiece[] showCapturedPieces;
+
+    void Start()
+    {
+        gridSize = ReturnGridSize();
+    }
 
     public void AddToPieceInfo()
     {
@@ -71,8 +79,8 @@ public class ChessController : MonoBehaviour
 
         if (pieceInfo != null)
         {
-            if (pieceInfo.isWhite) blackScore += pieceInfo.score;
-            else whiteScore += pieceInfo.score;
+            if (pieceInfo.isWhite) { blackScore += pieceInfo.score; showCapturedPieces[0].ShowLatestPiece(pieceInfo.piece); }
+            else { whiteScore += pieceInfo.score; showCapturedPieces[1].ShowLatestPiece(pieceInfo.piece); }
 
             if(goalCapture && pieceInfo.piece == capturePiece)
             {
@@ -258,5 +266,16 @@ public class ChessController : MonoBehaviour
     public void AddEnPassant(PieceController pieceController)
     {
         enPassantMoves.Add(pieceController);
+    }
+
+    public float ReturnGridSize()
+    {
+        return chessBoardLayout.cellSize.x;
+    }
+
+    public Vector2 ReturnOrigin()
+    {
+        float coordinate = (ReturnGridSize() / 2.0f) - (chessBoardLayout.GetComponent<RectTransform>().sizeDelta.x / 2.0f);
+        return Vector2.one * coordinate;
     }
 }
