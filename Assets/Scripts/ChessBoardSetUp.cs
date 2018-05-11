@@ -24,8 +24,8 @@ public class ChessBoardSetUp : MonoBehaviour
     void Start()
     {
         chessController = GetComponent<ChessController>();
-        gridSpace = chessController.gridSize;
-        gridOrigin = chessController.gridOrigin.x;
+        gridSpace = chessController.ReturnGridSize();
+        gridOrigin = chessController.ReturnOrigin().x;
     }
 
     public void SetUpGame()
@@ -67,12 +67,16 @@ public class ChessBoardSetUp : MonoBehaviour
         piece.name = string.Format("{0}{1}", isWhite ? "White" : "Black", pieceNames[(int)pieceType]);
         RectTransform rect = piece.GetComponent<RectTransform>();
         Vector2 position = new Vector2((pos.x * gridSpace) + gridOrigin, (pos.y * gridSpace) + gridOrigin);
-        rect.localPosition = position;
-        piece.GetComponent<PieceController>().gridCoordinate = new Vector2(pos.x, pos.y);
-        piece.GetComponent<PieceController>().isWhite = isWhite;
-        piece.GetComponent<PieceController>().piece = pieceType;
-        piece.GetComponent<PieceController>().score = gameScores[(int)pieceType];
+        
+        PieceController pieceController = piece.GetComponent<PieceController>();
+        pieceController.gridCoordinate = new Vector2(pos.x, pos.y);
+        pieceController.isWhite = isWhite;
+        pieceController.piece = pieceType;
+        pieceController.score = gameScores[(int)pieceType];
         piece.GetComponent<Image>().sprite = pieceSprites[(int)pieceType + (System.Enum.GetValues(typeof(PieceTitle.Piece)).Length * (isWhite?0:1))];
+        rect.sizeDelta = Vector2.one * gridSpace;
+        rect.localPosition = position;
+        Debug.LogFormat("rect size delta: {0}, gridspace: {1}", rect.sizeDelta, gridSpace);
     }
 
     IEnumerator AddInfo(ChessController chessController)
