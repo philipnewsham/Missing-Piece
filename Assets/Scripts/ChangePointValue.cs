@@ -19,9 +19,15 @@ public class ChangePointValue : MonoBehaviour
     public Text pointText;
     public Button[] arrowButtons;
 
+    private ChessBoardSetUp chessSetUp;
+    private Options options; 
+
     void Start()
     {
-        pointValue = FindObjectOfType<ChessBoardSetUp>().ReturnPieceValue((int)piece);
+        chessSetUp = FindObjectOfType<ChessBoardSetUp>();
+        options = FindObjectOfType<Options>();
+
+        pointValue = chessSetUp.ReturnPieceValue((int)piece);
         pointText.text = pointValue.ToString();
         arrowButtons[0].onClick.AddListener(() => ChangePoint(1));
         arrowButtons[1].onClick.AddListener(() => ChangePoint(-1));
@@ -32,7 +38,8 @@ public class ChangePointValue : MonoBehaviour
         pointValue = (pointValue + amount) % 10;
         pointValue = pointValue >= 0 ? pointValue : 9;
         
-        FindObjectOfType<ChessBoardSetUp>().SetPieceValue((int)piece, pointValue);
+        chessSetUp.SetPieceValue((int)piece, pointValue);
+        options.UpdateRules();
         pointText.text = pointValue.ToString();
     }
 }

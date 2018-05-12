@@ -93,5 +93,14 @@ public class ChessBoardSetUp : MonoBehaviour
     public void SetPieceValue(int piece, int value)
     {
         pieceScores[piece] = value;
+        
+    }
+
+    public bool PointLimitPossible(int pointLimit)
+    {
+        float regularPieces = pieceScores[1] * 2 + pieceScores[2] * 2 + pieceScores[3] * 2;
+        float fullQueenScore = pieceScores[0] * 9;
+        float fullPawnScore = pieceScores[0] + pieceScores[4] * 8;
+        return (pointLimit < (regularPieces + fullPawnScore) || pointLimit < (regularPieces + fullQueenScore));
     }
 }
