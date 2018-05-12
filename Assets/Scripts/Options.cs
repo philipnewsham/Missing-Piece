@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class Options : MonoBehaviour
 {
     private ChessController chessController;
+    private ChessBoardSetUp chessSetUp;
     private List<bool> goalBools = new List<bool>() { true, false };
     public Button beginButton;
 
@@ -44,6 +45,7 @@ public class Options : MonoBehaviour
     void Start ()
     {
         chessController = FindObjectOfType<ChessController>();
+        chessSetUp = FindObjectOfType<ChessBoardSetUp>();
         beginButton.onClick.AddListener(() => BeginGame());
 
         pointLimitButtons[0].onClick.AddListener(() => ChangePointLimit(-1));
@@ -62,7 +64,17 @@ public class Options : MonoBehaviour
 
     void CheckInteractive()
     {
-        beginButton.interactable = !(goalBools[0] && pointLimit + turnLimit == 0);
+        if (goalBools[0])
+        {
+            if(turnLimit == 0)
+            {
+                if (pointLimit == 0)
+                    beginButton.interactable = false;
+                else
+                    beginButton.interactable = chessSetUp.PointLimitPossible(pointLimit);
+            }
+        }
+        
         if (goalBools[1])
             beginButton.interactable = true;
     }
@@ -119,13 +131,24 @@ public class Options : MonoBehaviour
         {
             rule += pointLimit > 0 ? string.Format("First to {0} {1}", pointLimit,pointLimit==1?"point":"points") : "Highest points";
             rule += turnLimit > 0 ? string.Format(", in {0} {1}.", turnLimit,turnLimit==1?"turn":"turns") : ".";
-            if (turnLimit + pointLimit == 0)
-                rule = "Highest points in unlimited turns, select either a point limit or turn limit to play.";
+            if (turnLimit == 0)
+            {
+                if (pointLimit == 0)
+                    rule = "Highest points in unlimited turns, select either a point limit or turn limit to play.";
+                else if (!chessSetUp.PointLimitPossible(pointLimit))
+                    rule = "Based on the current pieces values, the current point aim is impossible!";
+            }
         }
         if (goalBools[1])
             rule += string.Format("First to capture the opponent's {0}.", capturePiece[currentPiece]);
 
         inGameRules.text = string.Format("Rules: {0}", rule);
         ruleText.text = rule;
+    }
+
+    public void UpdateRules()
+    {
+        UpdateRuleText();
+        CheckInteractive();
     }
 }
