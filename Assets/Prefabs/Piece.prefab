@@ -22,7 +22,6 @@ GameObject:
   - component: {fileID: 222538499264713750}
   - component: {fileID: 114904226368755936}
   - component: {fileID: 114947672049741690}
-  - component: {fileID: 114128112906341562}
   - component: {fileID: 82661485248937376}
   - component: {fileID: 114168115978549896}
   m_Layer: 5
@@ -113,21 +112,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
---- !u!114 &114128112906341562
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1866975331378130}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 464a6d577d4439d4e9f40be116ce047c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gridCoordinate: {x: 0, y: 0}
-  isWhite: 0
-  score: 0
-  isKing: 0
 --- !u!114 &114168115978549896
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -146,6 +130,9 @@ MonoBehaviour:
   dismissButton: {fileID: 1726342228085774, guid: 3bb9d71b5c00f124eb045957b823e327,
     type: 2}
   isWhite: 0
+  firstMove: 1
+  score: 0
+  isKing: 0
 --- !u!114 &114904226368755936
 MonoBehaviour:
   m_ObjectHideFlags: 1

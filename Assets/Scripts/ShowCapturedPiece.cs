@@ -11,12 +11,19 @@ public class ShowCapturedPiece : MonoBehaviour
 	
     void Start()
     {
-        foreach(Transform child in transform)
+        HidePieces();
+    }
+
+    public void HidePieces()
+    {
+        pieceImages.Clear();
+        foreach (Transform child in transform)
         {
             pieceImages.Add(child.gameObject);
             child.gameObject.SetActive(false);
         }
     }
+
 	public void ShowLatestPiece(PieceTitle.Piece piece)
     {
         pieceImages[pieceCount].SetActive(true);
