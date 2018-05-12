@@ -99,13 +99,11 @@ public class ChessController : MonoBehaviour
     public PieceController CheckEnPassant(Vector2 position)
     {
         PieceController pieceInfo = null;
-        Debug.LogFormat("check position: {0}", position);
         if(enPassantMoves.Count > 0)
         {
             foreach (PieceController info in enPassantMoves)
             {
                 Vector2 pos = new Vector2(info.gridCoordinate.x, info.gridCoordinate.y + (info.isWhite ? -1 : 1));
-                Debug.LogFormat("check pos: {0}", pos);
                 if (pos == position)
                     pieceInfo = info;
             }

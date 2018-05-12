@@ -57,7 +57,13 @@ public class ChessBoardSetUp : MonoBehaviour
         CreatePiece(new Vector2(7, 7), isWhite, PieceTitle.Piece.ROOK);
         for (int i = 0; i < 8; i++)
             CreatePiece(new Vector2(i, 6), isWhite, PieceTitle.Piece.PAWN);
-        
+
+        List<ShowCapturedPiece> capturedPieces = new List<ShowCapturedPiece>();
+        capturedPieces.AddRange(FindObjectsOfType<ShowCapturedPiece>());
+        foreach (ShowCapturedPiece scp in capturedPieces)
+            scp.HidePieces();
+
+        FindObjectOfType<ShowPieceValues>().ShowValues(pieceScores);
         StartCoroutine(AddInfo(chessController));
     }
 
@@ -76,7 +82,6 @@ public class ChessBoardSetUp : MonoBehaviour
         piece.GetComponent<Image>().sprite = pieceSprites[(int)pieceType + (System.Enum.GetValues(typeof(PieceTitle.Piece)).Length * (isWhite?0:1))];
         rect.sizeDelta = Vector2.one * gridSpace;
         rect.localPosition = position;
-        Debug.LogFormat("rect size delta: {0}, gridspace: {1}", rect.sizeDelta, gridSpace);
     }
 
     IEnumerator AddInfo(ChessController chessController)
@@ -93,7 +98,6 @@ public class ChessBoardSetUp : MonoBehaviour
     public void SetPieceValue(int piece, int value)
     {
         pieceScores[piece] = value;
-        
     }
 
     public bool PointLimitPossible(int pointLimit)
