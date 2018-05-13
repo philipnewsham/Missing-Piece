@@ -20,7 +20,6 @@ public class ChessController : MonoBehaviour
     private PieceController[] pieceInformations;
     private List<PieceController> enPassantMoves = new List<PieceController>();
     public GridLayoutGroup chessBoardLayout;
-    private float gridSize;
     private Vector2 gridOrigin;
 
     private List<Button> whitePieces = new List<Button>();
@@ -47,9 +46,11 @@ public class ChessController : MonoBehaviour
 
     public ShowCapturedPiece[] showCapturedPieces;
 
+    private ShowMoves showMoves;
+
     void Start()
     {
-        gridSize = ReturnGridSize();
+        showMoves = FindObjectOfType<ShowMoves>();
     }
 
     public void AddToPieceInfo()
@@ -181,10 +182,19 @@ public class ChessController : MonoBehaviour
         victoryText.text = "It's a tie!";
     }
 
+    void Stalemate()
+    {
+        victoryScreen.SetActive(true);
+        victoryText.text = "Stalemate!";
+    }
+
     bool isWhite;
     public void EnablePieces()
     {
         isWhite = !isWhite;
+        Debug.LogFormat("is stalemate = {0}", IsStalemate());
+        if (IsStalemate())
+            Stalemate();
 
         playerTurnText.text = string.Format("{0}'s turn",isWhite?"White":"Black");
         currentTurnText.text = string.Format("Turn: {0}", currentTurn+2);
@@ -275,5 +285,21 @@ public class ChessController : MonoBehaviour
     {
         float coordinate = (ReturnGridSize() / 2.0f) - (chessBoardLayout.GetComponent<RectTransform>().sizeDelta.x / 2.0f);
         return Vector2.one * coordinate;
+    }
+
+    bool IsStalemate()
+    {
+        //checking all pieces in game
+        foreach(PieceController piece in pieceInformations)
+        {
+            if(piece != null && piece.isWhite == isWhite)
+            {
+                List<Vector2> moves = new List<Vector2>();
+                moves = showMoves.ShowPossibleMoves(piece.gridCoordinate, piece.isWhite, piece.piece, piece.firstMove);
+                if (moves.Count > 0)//if a move is possible, then it's not stalemate
+                    return false;
+            }
+        }
+        return true;//if all pieces of current colour has been checked and no moves have been found, it's stalemate
     }
 }
