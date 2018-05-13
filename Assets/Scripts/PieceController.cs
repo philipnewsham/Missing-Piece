@@ -22,9 +22,7 @@ public class PieceController : MonoBehaviour
     public bool firstMove = true;
     public int score;
     public bool isKing;
-
     private AudioSource audioSource;
-
     private ShowMoves showMoveScript;
 
     void Start()
@@ -44,8 +42,8 @@ public class PieceController : MonoBehaviour
 
         if (showMoves)
         {
+            StartCoroutine(SelectedAnimation());
             List<Vector2> possibleMoves = showMoveScript.ShowPossibleMoves(gridCoordinate, isWhite, piece, firstMove);
-
             GameObject dismissClone = Instantiate(dismissButton, transform.parent);
             dismissClone.GetComponent<Button>().onClick.AddListener(() => ShowMoves());
             dismissButtonClone = dismissClone;
@@ -72,6 +70,7 @@ public class PieceController : MonoBehaviour
         }
         else
         {
+            rectTransform.localScale = Vector2.one;
             for (int i = 0; i < moveButtons.Count; i++)
                 Destroy(moveButtons[i]);
 
@@ -128,5 +127,18 @@ public class PieceController : MonoBehaviour
     {
         piece = PieceTitle.Piece.QUEEN;
         GetComponent<Image>().sprite = FindObjectOfType<ChessBoardSetUp>().pieceSprites[(int)piece + (System.Enum.GetValues(typeof(PieceTitle.Piece)).Length * (isWhite ? 0 : 1))];
+    }
+
+    IEnumerator SelectedAnimation()
+    {
+        float lerpTime = 0.0f;
+        float lerpSpeed = 5.0f;
+        while (showMoves)
+        {
+            float size = ((Mathf.Cos(lerpTime) + 1.0f) / 8.0f)+0.75f;//use cosine wave between 0.75 and 1.0
+            rectTransform.localScale = Vector2.one * size;
+            lerpTime += Time.deltaTime * lerpSpeed;
+            yield return null;
+        }
     }
 }
