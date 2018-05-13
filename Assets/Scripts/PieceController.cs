@@ -70,6 +70,7 @@ public class PieceController : MonoBehaviour
         }
         else
         {
+            audioSource.Play();
             rectTransform.localScale = Vector2.one;
             for (int i = 0; i < moveButtons.Count; i++)
                 Destroy(moveButtons[i]);
