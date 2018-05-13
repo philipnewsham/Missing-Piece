@@ -7,7 +7,7 @@ using UnityEngine.Audio;
 public class AudioSystem : MonoBehaviour
 {
     public Button[] audioButtons;
-    private Text[] audioButtonTexts;
+    private Image[] audioButtonImages;
 
     public AudioMixerSnapshot[] musicSnapshots;
     public AudioMixerSnapshot[] sfxSnapshots;
@@ -17,35 +17,42 @@ public class AudioSystem : MonoBehaviour
     private int sfx;
     private int rain;
 
+    public Sprite[] musicSprites;
+    public Sprite[] sfxSprites;
+    public Sprite[] rainSprites;
+
 	void Start ()
     {
         audioButtons[0].onClick.AddListener(() => MuteMusic());
         audioButtons[1].onClick.AddListener(() => MuteSFX());
         audioButtons[2].onClick.AddListener(() => MuteRain());
 
-        audioButtonTexts = new Text[audioButtons.Length];
+        audioButtonImages = new Image[audioButtons.Length];
         for (int i = 0; i < audioButtons.Length; i++)
-            audioButtonTexts[i] = audioButtons[i].GetComponentInChildren<Text>();
+        {
+            Image[] images = audioButtons[i].GetComponentsInChildren<Image>();
+            audioButtonImages[i] = images[1];
+        }
 	}
 	
 	void MuteMusic()
     {
         music = (music + 1) % 2;
         musicSnapshots[music].TransitionTo(0.0f);
-        audioButtonTexts[0].text = string.Format("Music: {0}", music == 0 ? "On" : "Off");
+        audioButtonImages[0].sprite = musicSprites[music];
     }
 
     void MuteSFX()
     {
         sfx = (sfx + 1) % 2;
         sfxSnapshots[sfx].TransitionTo(0.0f);
-        audioButtonTexts[1].text = string.Format("SFX: {0}", sfx == 0 ? "On" : "Off");
+        audioButtonImages[1].sprite = sfxSprites[sfx];
     }
 
     void MuteRain()
     {
         rain = (rain + 1) % 2;
         rainSnapshots[rain].TransitionTo(0.0f);
-        audioButtonTexts[2].text = string.Format("Rain: {0}", rain == 0 ? "On" : "Off");
+        audioButtonImages[2].sprite = rainSprites[rain];
     }
 }

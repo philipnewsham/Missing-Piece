@@ -50,11 +50,6 @@ public class Options : MonoBehaviour
         beginButton.onClick.AddListener(() => BeginGame());
         resetButton.onClick.AddListener(() => ResetOptions());
 
-        pointLimitButtons[0].onClick.AddListener(() => ChangePointLimit(-1));
-        pointLimitButtons[1].onClick.AddListener(() => ChangePointLimit(1));
-        turnLimitButtons[0].onClick.AddListener(() => ChangeTurnLimit(-1));
-        turnLimitButtons[1].onClick.AddListener(() => ChangeTurnLimit(1));
-
         choosePieceButtons[0].onClick.AddListener(() => ChangeCapturePiece(1));
         choosePieceButtons[1].onClick.AddListener(() => ChangeCapturePiece(-1));
 
@@ -79,18 +74,21 @@ public class Options : MonoBehaviour
         UpdateRuleText();
     }
 
-    void ChangePointLimit(int point)
+    public Slider pointSlider;
+    public Slider turnSlider;
+
+    public void ChangePointLimit()
     {
-        pointLimit = Mathf.Clamp(pointLimit + point,0,int.MaxValue);
+        pointLimit = Mathf.Clamp((int)pointSlider.value,0,int.MaxValue);
         pointLimitText.text = pointLimit == 0 ? "\u221E" : pointLimit.ToString();
         chessController.ChangePointAmount(pointLimit);
         UpdateRuleText();
         CheckInteractive();
     }
 
-    void ChangeTurnLimit(int turn)
+    public void ChangeTurnLimit()
     {
-        turnLimit = Mathf.Clamp(turnLimit + (turn*2),0,int.MaxValue);
+        turnLimit = Mathf.Clamp(((int)turnSlider.value * 2),0,int.MaxValue);
         turnLimitText.text = turnLimit <= 0? "\u221E":turnLimit.ToString();
         chessController.ChangeTurnAmount(turnLimit);
         UpdateRuleText();
@@ -119,7 +117,7 @@ public class Options : MonoBehaviour
             if (turnLimit == 0)
             {
                 if (pointLimit == 0)
-                    rule = "Highest points in unlimited turns, select either a point limit or turn limit to play.";
+                    rule = "Highest points in unlimited turns can't be won! Select either a point limit or turn limit to play.";
                 else if (!chessSetUp.PointLimitPossible(pointLimit))
                     rule = "Based on the current pieces values, the current point aim is impossible!";
             }
@@ -153,8 +151,8 @@ public class Options : MonoBehaviour
 
     void ResetOptions()
     {
-        ChangePointLimit(-pointLimit);
-        ChangeTurnLimit(-turnLimit);
+        pointSlider.value = 0;
+        turnSlider.value = 0;
         ChangeCapturePiece(-currentPiece);
         winConditionToggles[0].isOn = true;
         chessSetUp.ResetScores();
