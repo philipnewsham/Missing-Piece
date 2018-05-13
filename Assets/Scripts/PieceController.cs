@@ -49,6 +49,7 @@ public class PieceController : MonoBehaviour
             GameObject dismissClone = Instantiate(dismissButton, transform.parent);
             dismissClone.GetComponent<Button>().onClick.AddListener(() => ShowMoves());
             dismissButtonClone = dismissClone;
+            dismissClone.GetComponent<RectTransform>().sizeDelta = new Vector2(Screen.width, Screen.height);
             if (possibleMoves.Count > 0)
             {
                 for (int i = 0; i < possibleMoves.Count; i++)//spawning buttons
