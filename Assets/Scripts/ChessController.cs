@@ -211,7 +211,7 @@ public class ChessController : MonoBehaviour
         }
         currentTurn++;
         RemoveEnPassantMoves();
-        if(currentTurn == turnAmount && turnAmount > 0)
+        if(goalScore && currentTurn == turnAmount && turnAmount > 0)
         {
             currentTurnText.text = "";
             playerTurnText.text = "";
