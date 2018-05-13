@@ -37,9 +37,19 @@ public class ChangePointValue : MonoBehaviour
     {
         pointValue = (pointValue + amount) % 10;
         pointValue = pointValue >= 0 ? pointValue : 9;
-        
+        UpdateValue();
+    }
+
+    void UpdateValue()
+    {
         chessSetUp.SetPieceValue((int)piece, pointValue);
         options.UpdateRules();
         pointText.text = pointValue.ToString();
+    }
+
+    public void ResetValue(int value)
+    {
+        pointValue = value;
+        UpdateValue();
     }
 }
