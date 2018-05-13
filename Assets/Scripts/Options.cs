@@ -9,6 +9,7 @@ public class Options : MonoBehaviour
     private ChessBoardSetUp chessSetUp;
     private List<bool> goalBools = new List<bool>() { true, false };
     public Button beginButton;
+    public Button resetButton;
 
     private int pointLimit;
     private int turnLimit;
@@ -47,6 +48,7 @@ public class Options : MonoBehaviour
         chessController = FindObjectOfType<ChessController>();
         chessSetUp = FindObjectOfType<ChessBoardSetUp>();
         beginButton.onClick.AddListener(() => BeginGame());
+        resetButton.onClick.AddListener(() => ResetOptions());
 
         pointLimitButtons[0].onClick.AddListener(() => ChangePointLimit(-1));
         pointLimitButtons[1].onClick.AddListener(() => ChangePointLimit(1));
@@ -61,24 +63,7 @@ public class Options : MonoBehaviour
 
         ToggleWinCondition();
     }
-
-    void CheckInteractive()
-    {
-        if (goalBools[0])
-        {
-            if(turnLimit == 0)
-            {
-                if (pointLimit == 0)
-                    beginButton.interactable = false;
-                else
-                    beginButton.interactable = chessSetUp.PointLimitPossible(pointLimit);
-            }
-        }
-        
-        if (goalBools[1])
-            beginButton.interactable = true;
-    }
-
+    
     void BeginGame()
     {
         FindObjectOfType<ChessBoardSetUp>().SetUpGame();
@@ -130,7 +115,7 @@ public class Options : MonoBehaviour
         if (goalBools[0])
         {
             rule += pointLimit > 0 ? string.Format("First to {0} {1}", pointLimit,pointLimit==1?"point":"points") : "Highest points";
-            rule += turnLimit > 0 ? string.Format(", in {0} {1}.", turnLimit,turnLimit==1?"turn":"turns") : ".";
+            rule += turnLimit > 0 ? string.Format(", or the highest score in {0} {1}.", turnLimit,turnLimit==1?"turn":"turns") : ".";
             if (turnLimit == 0)
             {
                 if (pointLimit == 0)
@@ -146,9 +131,33 @@ public class Options : MonoBehaviour
         ruleText.text = rule;
     }
 
+    void CheckInteractive()
+    {
+        if (goalBools[0])
+        {
+            if (turnLimit == 0)
+                beginButton.interactable = (pointLimit == 0) ? false : chessSetUp.PointLimitPossible(pointLimit);
+            else
+                beginButton.interactable = true;
+        }
+
+        if (goalBools[1])
+            beginButton.interactable = true;
+    }
+
     public void UpdateRules()
     {
         UpdateRuleText();
         CheckInteractive();
+    }
+
+    void ResetOptions()
+    {
+        ChangePointLimit(-pointLimit);
+        ChangeTurnLimit(-turnLimit);
+        ChangeCapturePiece(-currentPiece);
+        winConditionToggles[0].isOn = true;
+        chessSetUp.ResetScores();
+        UpdateRules();
     }
 }

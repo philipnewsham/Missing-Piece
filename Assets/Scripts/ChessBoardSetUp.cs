@@ -12,11 +12,11 @@ public class ChessBoardSetUp : MonoBehaviour
     private float gridOrigin;
 
     public bool editedScores;
-
-    [HideInInspector]
+    
     private int[] pieceScores = new int[5] { 9, 3, 3, 5, 1 }; //queen, bishop, knight, rook, pawn
-
+    private int[] originalScores = new int[5] { 9, 3, 3, 5, 1 };
     private int[] gameScores;
+
     ChessController chessController;
     public Sprite[] pieceSprites;
     private List<string> pieceNames = new List<string>(){"Queen","Bishop","Knight","Rook","Pawn"};
@@ -98,6 +98,15 @@ public class ChessBoardSetUp : MonoBehaviour
     public void SetPieceValue(int piece, int value)
     {
         pieceScores[piece] = value;
+    }
+
+    public void ResetScores()
+    {
+        List<ChangePointValue> changePointValues = new List<ChangePointValue>();
+        changePointValues.AddRange(FindObjectsOfType<ChangePointValue>());
+
+        foreach (ChangePointValue cpv in changePointValues)
+            cpv.ResetValue(originalScores[(int)cpv.piece]);
     }
 
     public bool PointLimitPossible(int pointLimit)
